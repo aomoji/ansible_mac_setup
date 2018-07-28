@@ -1,0 +1,21 @@
+- name: start zsh installed by homebrew
+  command: /usr/local/bin/zsh
+
+// Reference https://blog.ismg.kdl.co.jp/tools/zsh-prezto
+- name: install prezto
+  command: git clone --recursive https://github.com/sorin-ionescu/prezto.git "${ZDOTDIR:-$HOME}/.zprezto"
+
+- name: setup prezto
+  command: setopt EXTENDED_GLOB for rcfile in "${ZDOTDIR:-$HOME}"/.zprezto/runcoms/^README.md(.N); do ln -s "$rcfile" "${ZDOTDIR:-$HOME}/.${rcfile:t}" done
+
+- name: move .zshrc to home directory
+  copy:
+    src: ../files/.zshrc
+    dest: ~/.zshrc
+    mode: 0644
+
+- name: set zsh as default shell
+  command: chsh -s '/usr/local/bin/zsh'
+
+- name: source .zshrc
+  command: source ~/.zshrc

@@ -1,0 +1,26 @@
+homebrew_use_brewfile: false
+
+homebrew_installed_packages:
+  - { name: zsh }
+  - { name: git }
+  - { name: neovim }
+  - { name: openssl }
+  - { name: jq }
+  - { name: curl }
+  - { name: nkf }
+  - { name: peco }
+  - { name: wget }
+  - { name: awscli }
+  - { name: rename }
+  - { name: sqlite }
+  - { name: readline }
+  - { name: tree }
+
+homebrew_cask_apps:
+  - { name: visual-studio-code }
+  - { name: alfred }
+  - { name: iterm2 }
+  - { name: slack }
+  - { name: table-tool }
+  - { name: google-chrome }
+  - { name: drawio }
