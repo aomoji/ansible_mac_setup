@@ -3,5 +3,5 @@
   roles:
     - { role: geerlingguy.mas, tags: [geerlingguy.mas] }
     - { role: geerlingguy.homebrew, tags: [geerlingguy.homebrew] }
-    - { role: zsh, tags: [zsh] }
-    - { role: neovim, tags: [neovim] }
+    - { role: zsh, tags: [zsh] } # worked
+    - { role: neovim, tags: [neovim] } # worked

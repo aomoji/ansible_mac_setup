@@ -1,7 +1,7 @@
 - name: start zsh installed by homebrew
   command: /usr/local/bin/zsh
 
-// Reference https://blog.ismg.kdl.co.jp/tools/zsh-prezto
+# Reference https://blog.ismg.kdl.co.jp/tools/zsh-prezto
 - name: install prezto
   command: git clone --recursive https://github.com/sorin-ionescu/prezto.git "${ZDOTDIR:-$HOME}/.zprezto"
 
