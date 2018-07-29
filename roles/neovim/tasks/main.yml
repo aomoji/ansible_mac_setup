@@ -7,6 +7,9 @@
   with_items:
   - { name: '~/.cache/dein' }
 
+- name: make .config directory
+  file: path=~/.config state=directory mode=0700
+
 - name: Download dein.vim install.sh
   get_url:
     url: https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/installer.sh
