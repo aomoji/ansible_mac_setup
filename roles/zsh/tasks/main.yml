@@ -9,16 +9,16 @@
 
 - name: setup prezto
   file:
-    src: "~/.zprezto/runcoms/{{ item }}"
-    dest: "~/{{ item }}"
+    src: '~/.zprezto/runcoms/{{ item.src }}'
+    dest: '~/{{ item.dest }}'
     state: link
     with_items:
-      - zlogin
-      - zlogout
-      - zpreztorc
-      - zprofile
-      - zshenv
-      - zshrc
+      - { src: 'zlogin', dest: '.zlogin' }
+      - { src: 'zlogout', dest: '.zlogout' }
+      - { src: 'zpreztorc', dest: '.zpreztorc' }
+      - { src: 'zprofile', dest: '.zprofile' }
+      - { src: 'zshenv', dest: '.zshenv' }
+      - { src: 'zshrc', dest: '.zshrc' }
 
 - name: move .zshrc to home directory
   copy:
