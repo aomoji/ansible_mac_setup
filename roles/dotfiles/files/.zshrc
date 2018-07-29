@@ -22,6 +22,8 @@ alias pg='cd $(ghq root)/$(ghq list | peco)'
 alias pv='code $(ghq root)/$(ghq list | peco)'
 alias pc='git checkout $(git branch | peco | tr -d \*)'
 
+alias nv='/usr/local/bin/nvim'
+
 # cdr command
 autoload -Uz is-at-least
 autoload -Uz chpwd_recent_dirs cdr add-zsh-hook
