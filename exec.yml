@@ -1,4 +1,6 @@
 - hosts: localhost
+  vars:
+    user_name: anka
   connection: local
   roles:
     - { role: geerlingguy.homebrew, tags: [geerlingguy.homebrew] }
