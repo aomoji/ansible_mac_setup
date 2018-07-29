@@ -25,6 +25,3 @@
     name: '{{ user_name }}'
     shell: '/usr/local/bin/zsh'
   become: yes
-
-# - name: source .zshrc
-#   shell: source ~/.zshrc

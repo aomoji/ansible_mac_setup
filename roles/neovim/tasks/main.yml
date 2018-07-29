@@ -21,6 +21,3 @@
  
 - name: install.sh dein.vim
   shell: sh ~/.config/installer.sh ~/.cache/dein
-
-# - name: source ~/.zshrc
-#   shell: source ~/.zshrc
