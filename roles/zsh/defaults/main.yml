@@ -1,0 +1,7 @@
+rcfile:
+  - zlogin
+  - zlogout
+  - zpreztorc
+  - zprofile
+  - zshenv
+  - zshrc

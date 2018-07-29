@@ -7,8 +7,12 @@
     repo: 'https://github.com/sorin-ionescu/prezto.git'
     dest: ~/.zprezto
 
+# equivalent to setopt EXTENDED_GLOB for rcfile in ~/.zprezto/runcoms/^README.md(.N); do ln -s "$rcfile" "~/.${rcfile:t}"; done
 - name: setup prezto
-  command: setopt EXTENDED_GLOB for rcfile in ~/.zprezto/runcoms/^README.md(.N); do ln -s "$rcfile" "~/.${rcfile:t}" done
+  file:
+    src: "~/.zprezto/runcoms/{{ rcfile }}"
+    dest: "~/{{ rcfile }}"
+    state: link
 
 - name: move .zshrc to home directory
   copy:
