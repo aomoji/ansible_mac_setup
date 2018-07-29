@@ -27,4 +27,4 @@
   become: yes
 
 - name: source .zshrc
-  command: source ~/.zshrc
+  shell: source ~/.zshrc
