@@ -3,7 +3,7 @@
 
 # Reference https://blog.ismg.kdl.co.jp/tools/zsh-prezto
 - name: install prezto
-  - git:
+  git:
     repo: 'https://github.com/sorin-ionescu/prezto.git'
     dest: ~/.zprezto
 
