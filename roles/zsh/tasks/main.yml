@@ -7,7 +7,6 @@
     repo: 'https://github.com/sorin-ionescu/prezto.git'
     dest: ~/.zprezto
 
-# equivalent to setopt EXTENDED_GLOB for rcfile in ~/.zprezto/runcoms/^README.md(.N); do ln -s "$rcfile" "~/.${rcfile:t}"; done
 - name: setup prezto
   file:
     src: "~/.zprezto/runcoms/{{ item }}"
