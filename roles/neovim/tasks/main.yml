@@ -10,14 +10,17 @@
 - name: make .config directory
   file: path=~/.config state=directory mode=0700
 
+- name: make .cache directory
+  file: path=~/.cache state=directory mode=0755
+
 - name: Download dein.vim install.sh
   get_url:
     url: https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/installer.sh
-    dest: ~/.config/nvim
+    dest: ~/.config/installer.sh
     mode: 0755
  
 - name: install.sh dein.vim
-  shell: sh ~/.config/nvim/installer.sh ~/.cache/dein
+  shell: sh ~/.config/installer.sh ~/.cache/dein
 
 # - name: source ~/.zshrc
 #   shell: source ~/.zshrc
