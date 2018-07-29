@@ -13,7 +13,13 @@
     src: "~/.zprezto/runcoms/{{ item }}"
     dest: "~/{{ item }}"
     state: link
-    with_items: "{{ rcfiles }}"
+    with_items:
+      - zlogin
+      - zlogout
+      - zpreztorc
+      - zprofile
+      - zshenv
+      - zshrc
 
 - name: move .zshrc to home directory
   copy:
