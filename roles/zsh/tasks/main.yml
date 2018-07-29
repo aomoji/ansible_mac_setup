@@ -12,13 +12,13 @@
     src: '~/.zprezto/runcoms/{{ item.src }}'
     dest: '~/{{ item.dest }}'
     state: link
-    with_items:
-      - { src: 'zlogin', dest: '.zlogin' }
-      - { src: 'zlogout', dest: '.zlogout' }
-      - { src: 'zpreztorc', dest: '.zpreztorc' }
-      - { src: 'zprofile', dest: '.zprofile' }
-      - { src: 'zshenv', dest: '.zshenv' }
-      - { src: 'zshrc', dest: '.zshrc' }
+  with_items:
+    - { src: 'zlogin', dest: '.zlogin' }
+    - { src: 'zlogout', dest: '.zlogout' }
+    - { src: 'zpreztorc', dest: '.zpreztorc' }
+    - { src: 'zprofile', dest: '.zprofile' }
+    - { src: 'zshenv', dest: '.zshenv' }
+    - { src: 'zshrc', dest: '.zshrc' }
 
 - name: move .zshrc to home directory
   copy:
