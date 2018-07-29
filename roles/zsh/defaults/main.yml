@@ -1,4 +1,4 @@
-rcfile:
+rcfiles:
   - zlogin
   - zlogout
   - zpreztorc

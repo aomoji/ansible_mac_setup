@@ -10,9 +10,10 @@
 # equivalent to setopt EXTENDED_GLOB for rcfile in ~/.zprezto/runcoms/^README.md(.N); do ln -s "$rcfile" "~/.${rcfile:t}"; done
 - name: setup prezto
   file:
-    src: "~/.zprezto/runcoms/{{ rcfile }}"
-    dest: "~/{{ rcfile }}"
+    src: "~/.zprezto/runcoms/{{ item }}"
+    dest: "~/{{ item }}"
     state: link
+    with_items: "{{ rcfiles }}"
 
 - name: move .zshrc to home directory
   copy:
