@@ -26,5 +26,5 @@
     shell: '/usr/local/bin/zsh'
   become: yes
 
-- name: source .zshrc
-  shell: source ~/.zshrc
+# - name: source .zshrc
+#   shell: source ~/.zshrc
