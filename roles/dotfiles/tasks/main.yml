@@ -1,0 +1,11 @@
+- name: move .zshrc to home directory
+  copy:
+    src: ../files/.zshrc
+    dest: ~/.zshrc
+    mode: 0644
+
+- name: move .vimrc to home directory
+  copy:
+    src: ../files/.vimrc
+    dest: ~/.vimrc
+    mode: 0755

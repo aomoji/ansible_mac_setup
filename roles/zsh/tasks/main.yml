@@ -20,12 +20,6 @@
     - { src: 'zshenv', dest: '.zshenv' }
     - { src: 'zshrc', dest: '.zshrc' }
 
-- name: move .zshrc to home directory
-  copy:
-    src: ../files/.zshrc
-    dest: ~/.zshrc
-    mode: 0644
-
 - name: set zsh as default shell
   command: chsh -s '/usr/local/bin/zsh'
 
