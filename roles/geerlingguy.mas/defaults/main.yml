@@ -1,4 +1,6 @@
 ---
+# Note: please sign in from App Store before you run this role due to mas sign-in error https://github.com/mas-cli/mas/issues/107.
+# App store may ask you to type your password when mas installs apps.
 mas_email: ""
 mas_password: ""
 mas_installed_app_ids: [] # Deprecated
