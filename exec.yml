@@ -1,7 +1,7 @@
 - hosts: localhost
   connection: local
   roles:
-    - { role: geerlingguy.mas, tags: [geerlingguy.mas] }
     - { role: geerlingguy.homebrew, tags: [geerlingguy.homebrew] }
+    - { role: geerlingguy.mas, tags: [geerlingguy.mas] }
     - { role: zsh, tags: [zsh] } # worked
     - { role: neovim, tags: [neovim] } # worked
