@@ -16,6 +16,9 @@ homebrew_installed_packages:
   - sqlite
   - readline
   - tree
+  - ag
+  - go
+  - postgresql
 
 homebrew_cask_apps:
   - visual-studio-code
