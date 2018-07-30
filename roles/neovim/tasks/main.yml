@@ -21,3 +21,9 @@
  
 - name: install.sh dein.vim
   shell: sh ~/.config/installer.sh ~/.cache/dein
+
+- name: copy .vimrc to home directory
+  copy:
+    src: ../files/.vimrc
+    dest: ~/.vimrc
+    mode: 0755
