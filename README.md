@@ -37,3 +37,4 @@ Initial setup for macOS
 # Note
 
 These roles were tested on a macOS virtual environment using [Anka](https://ankadoc.bitbucket.io).
+Excuse my poor English.
