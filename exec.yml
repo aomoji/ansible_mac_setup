@@ -8,4 +8,3 @@
     - { role: zsh, tags: [zsh] }
     - { role: neovim, tags: [neovim] }
     # - { role: dotfiles, tags: [dotfiles] } # Uncomment this if you want to use my rcfiles
-    - { role: andrewrothstein.anaconda, tags: [andrewrothstein.anaconda] }
