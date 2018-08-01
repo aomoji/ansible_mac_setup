@@ -32,7 +32,7 @@ Initial setup for macOS
     * Please sign in from App Store before you run ansible due to [mas sign-in error](https://github.com/mas-cli/mas/issues/107)
     * App store may ask you to type in your password when mas installs applications
 1. Run ansible
-    1. `ansible-playbook -i hosts exec.yml`
+    1. `ansible-playbook -i hosts exec.yml --ask-sudo-pass`
 
 # Note
 
