@@ -25,3 +25,9 @@
     name: '{{ user_name }}'
     shell: '/usr/local/bin/zsh'
   become: yes
+
+- name: copy .zshrc to home directory
+  copy:
+    src: ../files/.zshrc
+    dest: ~/.zshrc
+    mode: 0755
