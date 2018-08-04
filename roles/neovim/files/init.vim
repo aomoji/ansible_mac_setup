@@ -38,7 +38,6 @@ nnoremap : ;
 set fileencodings=utf-8,cp932 " 読み込み時の文字コード
 set clipboard+=unnamed " クリップボードを利用
 set notitle
-set title " ウィンドウのタイトルバーにパス情報を表示
 nnoremap j gj
 nnoremap k gk
 nnoremap 0 g0
