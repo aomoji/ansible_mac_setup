@@ -28,7 +28,8 @@ Initial setup for macOS
     1. See `homebrew_installed_packages` variable for homebrew packages
     1. See `homebrew_cask_apps` variable for cask apps
     1. See `mas_installed_apps` variable for macOS apps
-1. Sign in from App Store
+1. Set your Apple ID
+    * Set your Apple ID and password in `roles/geerlingguy.mas/vars/main.yml`.
     * Please sign in from App Store before you run ansible due to [mas sign-in error](https://github.com/mas-cli/mas/issues/107)
     * App store may ask you to type in your password when mas installs applications
 1. Run ansible
