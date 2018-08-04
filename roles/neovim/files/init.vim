@@ -17,6 +17,8 @@ if dein#load_state('~/.cache/dein')
   call dein#add('simeji/winresizer') " ウィンドウのリサイズ
   call dein#add('rafi/awesome-vim-colorschemes') " colorscheme
   call dein#add('airblade/vim-gitgutter') " 差分を左側に表示
+  call dein#add('vim-airline/vim-airline') " powerlineとかbufferタブを表示する
+  call dein#add('vim-airline/vim-airline-themes') " airlineのtheme
 
   call dein#end()
   call dein#save_state()
@@ -55,6 +57,7 @@ set number " 行番号の表示
 set showmatch " 対応する括弧を強調
 set autoindent " 改行時に前の行のインデントを継続する
 set smartindent " 改行時に入力された行の末尾に合わせて次の行のインデントを増減する
+set hidden " 保存されていないファイルがあるときでも別のファイルを開けるようにする
 " set cursorline " カーソル行の強調
 " 挿入モードでカーソル移動
 :imap <c-h> <Left>
@@ -181,4 +184,16 @@ if exists('&signcolumn')
 else
   let g:gitgutter_sign_column_always = 1
 endif
+""""""""""""""""""""""""""""""
+
+
+""""""""""""""""""""""""""""""
+" airlineの設定
+" https://github.com/vim-airline/vim-airline-themes
+""""""""""""""""""""""""""""""
+let g:airline_powerline_fonts = 1
+set laststatus=2
+let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tabline#buffer_idx_mode = 1
+let g:airline_theme='zenburn'
 """"""""""""""""""""""""""""""
