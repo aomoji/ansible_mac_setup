@@ -35,8 +35,8 @@ zstyle ':completion:*' recent-dirs-insert both
 fpath=(/opt/homebrew/share/zsh-completions $fpath)
 
 # lessに色付け
-export LESSOPEN='| /opt/homebrew/Cellar/source-highlight/3.1.8_9/bin/src-hilite-lesspipe.sh %s'
-export LESS='-gj10 --no-init --quit-if-one-screen --RAW-CONTROL-CHARS'
+# export LESSOPEN='| /opt/homebrew/Cellar/source-highlight/3.1.8_9/bin/src-hilite-lesspipe.sh %s'
+# export LESS='-gj10 --no-init --quit-if-one-screen --RAW-CONTROL-CHARS'
 
 
 # Peco
