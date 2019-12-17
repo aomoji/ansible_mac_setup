@@ -19,6 +19,7 @@ homebrew_installed_packages:
   - ag
   - go
   - postgresql
+  - reattach-to-user-namespace
 
 homebrew_cask_apps:
   - visual-studio-code
