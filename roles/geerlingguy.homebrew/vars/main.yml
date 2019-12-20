@@ -25,9 +25,11 @@ homebrew_installed_packages:
 homebrew_cask_apps:
   - visual-studio-code
   - alfred
-  - iterm2
+  - alacritty
   - slack
   - table-tool
   - google-chrome
   - drawio
   - vivaldi
+  - google-japanese-ime
+  - docker
