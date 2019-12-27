@@ -20,6 +20,7 @@ background_opacity: 0.98
 key_bindings:
   # for tmux prefix
   - { key: Q, mods: Control, chars: "\x11" }
+  # for Alt + Left/Right
   - { key: Left,     mods: Alt,     chars: "\x1bb" }
   - { key: Right,    mods: Alt,     chars: "\x1bf" }
 dynamic_title: true
