@@ -13,7 +13,7 @@ Initial setup for macOS
 * zsh: Installs [prezto](https://github.com/sorin-ionescu/prezto) for zsh and a .zshrc file
 * neovim: Installs [dein](https://github.com/Shougo/dein.vim) and a init.vim file. You may need to type `:call dein#install()` in vim, then the installation will be completed.
 * fonts: Installs [Cica font](https://github.com/miiton/Cica).
-* terminal: Install alacritty.yml file.
+* terminal: Installs alacritty.yml file.
 
 # Quick start
 
