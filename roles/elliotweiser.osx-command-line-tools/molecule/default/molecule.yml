@@ -10,18 +10,20 @@ lint:
 platforms:
   - name: ${MOLECULE_NAME}
     box: ${MOLECULE_BOX}
-    box_version: ${MOLECULE_BOX_VERSION}
+    box_version: "${MOLECULE_BOX_VERSION}"
     memory: 2048
     cpus: 4
+    instance_raw_config_args:
+      - "vm.boot_timeout = 600"
     config_options:
       synced_folder: false
-      boot_timeout: 300
 provisioner:
   name: ansible
   playbooks:
     create: create.yml
     converge: ../../tests/playbook.yml
     destroy: destroy.yml
+    prepare: prepare.yml
   config_options:
     defaults:
       callback_whitelist: profile_tasks,timer
