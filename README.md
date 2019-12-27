@@ -10,9 +10,10 @@ Initial setup for macOS
 # Roles
 
 * [geerlingguy.homebrew](https://github.com/geerlingguy/ansible-role-homebrew): Installs homebrew, and installs specified packages and cask applications.
-* [geerlingguy.mas](https://github.com/geerlingguy/ansible-role-mas): Installs macOS apps from the Mac App Store.
 * zsh: Installs [prezto](https://github.com/sorin-ionescu/prezto) for zsh and a .zshrc file
-* vim: Installs [dein](https://github.com/Shougo/dein.vim) and a init.vim file. You may need to type `:call dein#install()` in vim, then the installation will be completed.
+* neovim: Installs [dein](https://github.com/Shougo/dein.vim) and a init.vim file. You may need to type `:call dein#install()` in vim, then the installation will be completed.
+* fonts: Installs [Cica font](https://github.com/miiton/Cica).
+* terminal: Install alacritty.yml file.
 
 # Quick start
 
@@ -28,15 +29,9 @@ Initial setup for macOS
     1. See `homebrew_installed_packages` variable for homebrew packages
     1. See `homebrew_cask_apps` variable for cask apps
     1. See `mas_installed_apps` variable for macOS apps
-1. Set your Apple ID
-    * Set your Apple ID and password in `roles/geerlingguy.mas/vars/main.yml`.
-    * Please sign in from App Store before you run ansible due to [mas sign-in error](https://github.com/mas-cli/mas/issues/107)
-    * App store may ask you to type in your password when mas installs applications
 1. Run ansible
     1. `ansible-playbook -i hosts exec.yml --ask-become-pass`
 
 # Note
 
 These roles were tested on a macOS virtual environment using [Anka](https://ankadoc.bitbucket.io).
-
-Excuse my poor English.
