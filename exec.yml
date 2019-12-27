@@ -8,3 +8,4 @@
     - { role: neovim, tags: [neovim] }
     - { role: fonts, tags: [fonts] }
     - { role: terminal, tags: [terminal] }
+    - { role: tmux, tags: [tmux] }

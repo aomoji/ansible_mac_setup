@@ -14,6 +14,7 @@ Initial setup for macOS
 * neovim: Installs [dein](https://github.com/Shougo/dein.vim) and a init.vim file. You may need to type `:call dein#install()` in vim, then the installation will be completed.
 * fonts: Installs [Cica font](https://github.com/miiton/Cica).
 * terminal: Installs alacritty.yml file.
+* tmux: Installs .tmux.conf
 
 # Quick start
 
