@@ -1,0 +1,5 @@
+- name: copy alacritty.yml to ~/.config/alacritty
+  copy:
+    src: ../files/alacritty.yml
+    dest: ~/.config/alacritty/alacritty.yml
+    mode: 0644
