@@ -4,6 +4,6 @@
   connection: local
   roles:
     - { role: geerlingguy.homebrew, tags: [geerlingguy.homebrew] }
-    - { role: geerlingguy.mas, tags: [geerlingguy.mas] }
     - { role: zsh, tags: [zsh] }
     - { role: neovim, tags: [neovim] }
+    - { role: fonts, tags: [fonts] }

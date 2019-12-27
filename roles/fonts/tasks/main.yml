@@ -1,0 +1,5 @@
+- name: copy .ttf files to ~/Library/Fonts
+  copy:
+    src: ../files/*.ttf
+    dest: ~/Library/Fonts/
+    mode: 0644
