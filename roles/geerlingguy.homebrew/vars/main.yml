@@ -28,7 +28,6 @@ homebrew_cask_apps:
   - alfred
   - alacritty
   - slack
-  - table-tool
   - google-chrome
   - drawio
   - vivaldi
