@@ -1,0 +1,4 @@
+- name: copy config.fish files to ~/.config/fish
+  copy: src=../files/{{ item }} dest=~/.config/fish/
+  with_items:
+    - config.fish
