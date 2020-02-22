@@ -1,0 +1,5 @@
+- name: copy .json files to ~/Library/Application\ Support/Code/User
+  copy: src=../files/{{ item }} dest=~/Library/Application\ Support/Code/User
+  with_items:
+    - keybindings.json
+    - settings.json
