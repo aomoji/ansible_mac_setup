@@ -1,0 +1,48 @@
+{
+    "files.encoding": "utf8",
+    "workbench.colorTheme": "Nord",
+    "editor.renderControlCharacters": true, //文字化けを暴く
+    "python.linting.pylintArgs": [
+        "--errors-only"
+    ],
+    "window.zoomLevel": 0,
+    "editor.minimap.enabled": false,
+    "workbench.activityBar.visible": true,
+    "workbench.editor.showTabs": true,
+    "workbench.editor.enablePreview": false,
+    // bookmarks
+    "bookmarks.treeview.visible": true,
+    "sync.gist": "",
+    "sync.quietSync": false,
+    "sync.removeExtensions": true,
+    "sync.syncExtensions": true,
+    "sync.autoDownload": false,
+    "sync.autoUpload": false,
+    "sync.forceDownload": false,
+    "editor.cursorBlinking": "expand",
+    "editor.wordWrap": "on",
+    "workbench.iconTheme": "file-icons",
+    "editor.fontSize": 14,
+    "python.dataScience.sendSelectionToInteractiveWindow": true,
+    "editor.suggestSelection": "first",
+    "vsintellicode.modify.editor.suggestSelection": "automaticallyOverrodeDefaultValue",
+    "python.jediEnabled": false,
+    "python.autoComplete.extraPaths": [
+        "/anaconda3/lib/python3.7/site-packages"
+    ],
+    "python.dataScience.allowUnauthorizedRemoteConnection": true,
+    "python.dataScience.jupyterServerURI": "http://34.208.184.139:8890",
+    "jupyter.notebook.startupArgs": [
+        "--no-browser",
+        "--NotebookApp.allow_origin=\"*\"",
+        "--port=8890"
+    ],
+    "editor.fontFamily": "Cica, Menlo, Monaco, 'Courier New', monospace",
+    "todo-tree.highlights.enabled": true,
+    "python.pythonPath": "/Users/kaito.oshiro/opt/anaconda3/bin/python",
+    "files.associations": {
+        "*.py": "python"
+    },
+    "terminal.integrated.inheritEnv": false,
+    "[sql]": {},
+}

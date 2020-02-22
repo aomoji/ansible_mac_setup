@@ -1,0 +1,71 @@
+// 既定値を上書きするには、このファイル内にキー バインドを挿入します
+[
+    {
+        "key": "ctrl+tab",
+        "command": "workbench.action.terminal.focusNext",
+        "when": "terminalFocus"
+    },
+    {
+    "key": "ctrl+j ctrl+i",
+        "command": "editor.action.goToImplementation",
+        "when": "editorFocus"
+    },
+    {
+    "key": "ctrl+j ctrl+d",
+        "command": "editor.action.goToDeclaration",
+        "when": "editorFocus"
+    },
+    {
+    "key": "ctrl+j ctrl+g",
+        "command": "workbench.action.findInFiles",
+        "when": "editorFocus"
+    },
+    {
+        "key": "ctrl+j ctrl+b", // bookmarks toggle
+        "command": "bookmarks.toggle",
+        "when": "editorTextFocus"
+    },
+    {
+        "key": "ctrl+j ctrl+l", // bookmarks list
+        "command": "bookmarks.list",
+        "when": ""
+    },
+    {
+        "key": "ctrl+m", // Lで現在のペインで開く。Control+Enterで別ペインで開く
+        "command": "workbench.view.explorer",
+        "when": "editorFocus"
+    },
+    {
+        "key": "ctrl+[", // explorerが開いているときに閉じる
+        "command": "workbench.action.toggleSidebarVisibility",
+        "when": "explorerViewletVisible && filesExplorerFocus && !inputFocus"
+    },
+    {
+        "key": "Escape", // explorerが開いているときに閉じる
+        "command": "workbench.action.toggleSidebarVisibility",
+        "when": "explorerViewletVisible && filesExplorerFocus && !inputFocus"
+    },
+    {
+        "key": "ctrl+- ctrl+-", // コメントアウト
+        "command": "editor.action.commentLine",
+        "when": "editorTextFocus && !editorReadonly"
+    },
+    {
+        "key": "cmd+r",
+        "command": "renameFile",
+        "when": "explorerViewletVisible && filesExplorerFocus && !explorerResourceIsRoot && !explorerResourceReadonly && !inputFocus"
+    },
+    {
+        "key": "enter",
+        "command": "-renameFile",
+        "when": "explorerViewletVisible && filesExplorerFocus && !explorerResourceIsRoot && !explorerResourceReadonly && !inputFocus"
+    },
+    {
+        "key": "ctrl+shift+tab",
+        "command": "workbench.action.previousEditor"
+    },
+    {
+        "key": "ctrl+tab",
+        "command": "workbench.action.nextEditor"
+    },
+]
