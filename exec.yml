@@ -9,3 +9,5 @@
     - { role: fonts, tags: [fonts] }
     - { role: terminal, tags: [terminal] }
     - { role: tmux, tags: [tmux] }
+    - { role: fish, tags: [fish] }
+    - { role: vscode, tags: [vscode] }
