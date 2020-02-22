@@ -18,7 +18,6 @@
     - { src: 'zpreztorc', dest: '.zpreztorc' }
     - { src: 'zprofile', dest: '.zprofile' }
     - { src: 'zshenv', dest: '.zshenv' }
-    - { src: 'zshrc', dest: '.zshrc' }
 
 - name: set zsh as default shell
   user:

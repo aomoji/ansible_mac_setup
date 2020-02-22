@@ -1,5 +1,7 @@
 - name: copy .ttf files to ~/Library/Fonts
-  copy:
-    src: ../files/*.ttf
-    dest: ~/Library/Fonts/
-    mode: 0644
+  copy: src=../files/{{ item }} dest=~/Library/Fonts/
+  with_items:
+    - Cica-Bold.ttf
+    - Cica-Regular.ttf
+    - Cica-BoldItalic.ttf
+    - Cica-RegularItalic.ttf
