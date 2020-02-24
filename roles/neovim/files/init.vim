@@ -29,7 +29,7 @@ if dein#check_install()
 endif
 
 " colorscheme
-colorscheme pyte
+colorscheme nord
 
 " other settings
 filetype on
