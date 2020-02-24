@@ -33,6 +33,3 @@ Initial setup for macOS
 1. Run ansible
     1. `ansible-playbook -i hosts exec.yml --ask-become-pass`
 
-# Note
-
-These roles were tested on a macOS virtual environment using [Anka](https://ankadoc.bitbucket.io).
