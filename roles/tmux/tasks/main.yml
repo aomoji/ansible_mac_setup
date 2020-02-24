@@ -1,3 +1,6 @@
+- name: install tpm (tmux package manager)
+  command: git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+
 - name: copy .zshrc to home directory
   copy:
     src: ../files/.tmux.conf
