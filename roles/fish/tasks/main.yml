@@ -2,3 +2,6 @@
   copy: src=../files/{{ item }} dest=~/.config/fish/
   with_items:
     - config.fish
+
+- name: install fisher
+  command: curl https://git.io/fisher --create-dirs -sLo ~/.config/fish/functions/fisher.fish
