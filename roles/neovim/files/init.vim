@@ -44,6 +44,8 @@ set hidden " 保存されていないファイルがあるときでも別のフ�
 :imap <c-j> <Down>
 :imap <c-k> <Up>
 :imap <c-l> <Right>
+" 検索のハイライトを消す
+nnoremap <leader>n :noh<CR>
 
 " escで日本語off
 if has('mac')

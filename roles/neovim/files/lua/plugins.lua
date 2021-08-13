@@ -46,7 +46,7 @@ return require('packer').startup(function()
       -- Use a loop to conveniently call 'setup' on multiple servers and
       -- map buffer local keybindings when the language server attaches
       -- Follow the nvim-lspconfig's install guide
-      local servers = { "pyright" }
+      local servers = { "pylsp", "metals" }
       for _, lsp in ipairs(servers) do
         nvim_lsp[lsp].setup {
           on_attach = on_attach,
@@ -59,14 +59,31 @@ return require('packer').startup(function()
   }
 
   use {
-    'vim-autoformat/vim-autoformat',
+    'mhartington/formatter.nvim',
     config = function()
-      vim.cmd("let g:python3_host_prog = expand('~/opt/anaconda3/bin/python')")
-      -- DO `pip install black`
-      vim.cmd("let g:formatterpath = ['~/opt/anaconda3/bin/black']")
-      vim.cmd('au BufWrite * :Autoformat')
-    end,
-    ft = {'python'}
+      require('formatter').setup({
+        logging = false,
+        filetype = {
+          python = {
+              -- black
+             function()
+                return {
+                  exe = "~/opt/anaconda3/bin/black",
+                  args = { vim.api.nvim_buf_get_name(0) },
+                  stdin = false
+                }
+             end
+          }
+        }
+      })
+      vim.api.nvim_exec([[
+      augroup FormatAutogroup
+        autocmd!
+        autocmd BufWritePost *.py FormatWrite
+      augroup END
+      ]], true)
+      vim.api.nvim_set_keymap('n', '<leader>fm', '<Cmd>Format<CR>', {noremap = true})
+    end
   }
 
   use {
@@ -136,7 +153,7 @@ return require('packer').startup(function()
       vim.api.nvim_set_keymap('n', '<leader>fb', '<Cmd>Telescope buffers<CR>', {noremap = true})
       vim.api.nvim_set_keymap('n', '<leader>fh', '<Cmd>Telescope help_tags<CR>', {noremap = true})
       vim.api.nvim_set_keymap('n', '<leader>fc', '<Cmd>Telescope commands<CR>', {noremap = true})
-      vim.api.nvim_set_keymap('n', '<leader>fm', '<Cmd>Telescope marks<CR>', {noremap = true})
+      vim.api.nvim_set_keymap('n', '<leader>ma', '<Cmd>Telescope marks<CR>', {noremap = true})
       vim.api.nvim_set_keymap('n', '<leader>fh', '<Cmd>Telescope command_history<CR>', {noremap = true})
       vim.api.nvim_set_keymap('n', '<leader>fr', '<Cmd>Telescope registers<CR>', {noremap = true})
       vim.api.nvim_set_keymap('n', '<leader>bf', '<Cmd>Telescope current_buffer_fuzzy_find<CR>', {noremap = true})
@@ -192,7 +209,7 @@ return require('packer').startup(function()
     config = function()
       vim.api.nvim_set_keymap('n', '<C-p>', ':BufferPrevious<CR>', {noremap = true})
       vim.api.nvim_set_keymap('n', '<C-n>', ':BufferNext<CR>', {noremap = true})
-      vim.api.nvim_set_keymap('n', '<C-x>', ':BufferClose<CR>', {noremap = true})
+      vim.api.nvim_set_keymap('n', '<C-c>', ':BufferClose<CR>', {noremap = true})
     end
   }
   vim.g.bufferline = {
