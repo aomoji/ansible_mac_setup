@@ -46,7 +46,7 @@ return require('packer').startup(function()
       -- Use a loop to conveniently call 'setup' on multiple servers and
       -- map buffer local keybindings when the language server attaches
       -- Follow the nvim-lspconfig's install guide
-      local servers = { "pylsp", "metals" }
+      local servers = { "pylsp" }
       for _, lsp in ipairs(servers) do
         nvim_lsp[lsp].setup {
           on_attach = on_attach,
@@ -73,13 +73,23 @@ return require('packer').startup(function()
                   stdin = false
                 }
              end
+          },
+          json = {
+            -- json
+            function()
+              return {
+                exe = "python -m json.tool",
+                args = { vim.api.nvim_buf_get_name(0) },
+                stdin = true 
+              }
+            end 
           }
         }
       })
       vim.api.nvim_exec([[
       augroup FormatAutogroup
         autocmd!
-        autocmd BufWritePost *.py FormatWrite
+        autocmd BufWritePost *.py,*.json FormatWrite
       augroup END
       ]], true)
       vim.api.nvim_set_keymap('n', '<leader>fm', '<Cmd>Format<CR>', {noremap = true})
@@ -95,6 +105,8 @@ return require('packer').startup(function()
     end,
     ft = {'python'}
   }
+
+
 
   use {
     'nvim-lua/completion-nvim',
@@ -137,6 +149,8 @@ return require('packer').startup(function()
 
   use {
     "blackCauldron7/surround.nvim",
+    -- 単語選択→囲む：viw→s<char>
+    -- 他の文字で囲む：sr<from><to>
     config = function()
       require "surround".setup {}
     end
@@ -178,14 +192,6 @@ return require('packer').startup(function()
     end
   }
 
-
-  use {
-    'lewis6991/spellsitter.nvim',
-    config = function()
-      require('spellsitter').setup()
-    end
-  }
-
   use {
     'lukas-reineke/indent-blankline.nvim'
   }
@@ -204,12 +210,13 @@ return require('packer').startup(function()
   }
 
   use {
-    'romgrk/barbar.nvim',
+    'akinsho/bufferline.nvim',
     requires = {'kyazdani42/nvim-web-devicons'},
     config = function()
-      vim.api.nvim_set_keymap('n', '<C-p>', ':BufferPrevious<CR>', {noremap = true})
-      vim.api.nvim_set_keymap('n', '<C-n>', ':BufferNext<CR>', {noremap = true})
-      vim.api.nvim_set_keymap('n', '<C-c>', ':BufferClose<CR>', {noremap = true})
+      require("bufferline").setup()
+      vim.api.nvim_set_keymap('n', '<C-p>', ':BufferLineCyclePrev<CR>', {noremap = true})
+      vim.api.nvim_set_keymap('n', '<C-n>', ':BufferLineCycleNext<CR>', {noremap = true})
+      vim.api.nvim_set_keymap('n', '<C-c>', ':BufferLinePickClose<CR>', {noremap = true})
     end
   }
   vim.g.bufferline = {
@@ -228,6 +235,31 @@ return require('packer').startup(function()
 
   use {
     'tomtom/tcomment_vim'
+  }
+
+  use{
+    'scalameta/coc-metals',
+    ft = { 'scala' },
+    requires = {
+      {
+        'neoclide/coc.nvim',
+        branch = 'release',
+        config = function()
+          -- GoTo code navigation.
+          vim.api.nvim_set_keymap('n', 'gd', '<Plug>(coc-definition)', {noremap = false})
+          vim.api.nvim_set_keymap('n', '<leader>D', '<Plug>(coc-type-definition)', {noremap = false})
+          vim.api.nvim_set_keymap('n', 'gi', '<Plug>(coc-implementation)', {noremap = false})
+          vim.api.nvim_set_keymap('n', 'gr', '<Plug>(coc-references)', {noremap = false})
+          -- Use `:CocDiagnostics` to get all diagnostics of current buffer in location list.
+          vim.api.nvim_set_keymap('n', '[d', '<Plug>(coc-diagnostic-prev)', {noremap = false})
+          vim.api.nvim_set_keymap('n', ']d', '<Plug>(coc-diagnostic-next)', {noremap = false})
+          -- Use K to show documentation in preview window.
+          vim.api.nvim_set_keymap('n', 'K', '<Cmd>call CocActionAsync("doHover")<CR>', {noremap = true})
+          -- Format
+          vim.api.nvim_set_keymap('n', '<leader>fm', '<Cmd>call CocActionAsync("format")<CR>', {noremap = true})
+         end
+      }
+    }
   }
 
 end)
