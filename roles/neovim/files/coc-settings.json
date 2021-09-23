@@ -1,0 +1,155 @@
+{
+  "coc.preferences.formatOnType": true,
+  "coc.preferences.formatOnSaveFiletypes": [
+    "scala",
+    "python"
+  ],
+  // jedi
+  "jedi.enable": true,
+  "jedi.startupMessage": false,
+  "jedi.executable.command": "~/opt/anaconda3/bin/jedi-language-server",
+  "jedi.diagnostics.enable": false,
+  "jedi.hover.enable": true,
+  "languageserver": {
+    "metals": {
+      "command": "metals-vim",
+      "rootPatterns": [
+        "build.sbt"
+      ],
+      "filetypes": [
+        "scala",
+        "sbt"
+      ]
+    },
+    "dls": {
+      "command": "/usr/local/bin/diagnostic-languageserver",
+      "args": [
+        "--stdio",
+        "--log-level",
+        "2"
+      ],
+      "filetypes": [
+        "python",
+        "sh"
+      ], // filetypes that you want to enable this lsp
+      "initializationOptions": {
+        "linters": {
+          "flake8": {
+            "sourceName": "flake8",
+            "command": "flake8",
+            "debounce": 200,
+            "rootPatterns": [
+              ".git",
+              "pyproject.toml",
+              "setup.py"
+            ],
+            "args": [
+              "--ignore=E402,C901,W503,W504,E116,E702,C0103,C0114,C0115,C0116,C0103,C0301,W0613,W0102,R0903,R0902,R0914,R0915,R0205,W0703,W0702,W0603",
+              "--format=%(row)d,%(col)d,%(code).1s,%(code)s: %(text)s",
+              "-"
+            ],
+            "offsetLine": 0,
+            "offsetColumn": 0,
+            "formatLines": 1,
+            "formatPattern": [
+              "(\\d+),(\\d+),([A-Z]),(.*)(\\r|\\n)*$",
+              {
+                "line": 1,
+                "column": 2,
+                "security": 3,
+                "message": 4
+              }
+            ],
+            "securities": {
+              "W": "info",
+              "E": "warning",
+              "F": "info",
+              "C": "info",
+              "N": "hint"
+            }
+          },
+          "shellcheck": {
+            "command": "shellcheck",
+            "debounce": 200,
+            "args": [
+              "--format=gcc",
+              "-"
+            ],
+            "offsetLine": 0,
+            "offsetColumn": 0,
+            "sourceName": "shellcheck",
+            "formatLines": 1,
+            "formatPattern": [
+              "^[^:]+:(\\d+):(\\d+):\\s+([^:]+):\\s+(.*)$",
+              {
+                "line": 1,
+                "column": 2,
+                "message": 4,
+                "security": 3
+              }
+            ],
+            "securities": {
+              "error": "error",
+              "warning": "warning",
+              "note": "info"
+            }
+          }
+        },
+        "filetypes": {
+          "python": "flake8",
+          "sh": "shellcheck"
+        },
+        "formatters": {
+          "black": {
+            "command": "black",
+            "args": [
+              "-q",
+              "-"
+            ]
+          },
+          "isort": {
+            "command": "isort",
+            "args": [
+              "-q",
+              "-"
+            ]
+          },
+          "docformatter": {
+            "command": "docformatter",
+            "args": [
+              "-"
+            ]
+          },
+          "json_format": {
+            "command": "python -m json.tool",
+            "args": [
+              "-"
+            ]
+          },
+          "lua-format": {
+            "command": "lua-format",
+            "args": [
+              "-"
+            ]
+          },
+          "shfmt": {
+            "command": "shfmt",
+            "args": [
+              "-"
+            ]
+          }
+        },
+        "formatFiletypes": {
+          "python": [
+            "black",
+            "isort",
+            "docformatter"
+          ],
+          "json": "json_format",
+          "lua": "lua-format",
+          "sh": "shfmt"
+        }
+      }
+    }
+  }
+}
