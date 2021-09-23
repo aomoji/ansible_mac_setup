@@ -128,9 +128,9 @@ return require('packer').startup(function()
                                     {noremap = true})
             vim.api.nvim_set_keymap('n', '<C-c>', ':BufferLinePickClose<CR>',
                                     {noremap = true})
+            vim.g.bufferline = {icon_close_tab = 'X'}
         end
     }
-    vim.g.bufferline = {icon_close_tab = 'X'}
 
     use {
         'lewis6991/gitsigns.nvim',
@@ -141,43 +141,37 @@ return require('packer').startup(function()
     use {'tomtom/tcomment_vim'}
 
     use {
-        'scalameta/coc-metals',
-        ft = {'scala'},
-        requires = {
-            {
-                'neoclide/coc.nvim',
-                branch = 'release',
-                config = function()
-                    -- GoTo code navigation.
-                    vim.api.nvim_set_keymap('n', 'gd', '<Plug>(coc-definition)',
-                                            {noremap = false})
-                    vim.api.nvim_set_keymap('n', '<leader>D',
-                                            '<Plug>(coc-type-definition)',
-                                            {noremap = false})
-                    vim.api.nvim_set_keymap('n', 'gi',
-                                            '<Plug>(coc-implementation)',
-                                            {noremap = false})
-                    vim.api.nvim_set_keymap('n', 'gr', '<Plug>(coc-references)',
-                                            {noremap = false})
-                    -- Use `:CocDiagnostics` to get all diagnostics of current buffer in location list.
-                    vim.api.nvim_set_keymap('n', '[d',
-                                            '<Plug>(coc-diagnostic-prev)',
-                                            {noremap = false})
-                    vim.api.nvim_set_keymap('n', ']d',
-                                            '<Plug>(coc-diagnostic-next)',
-                                            {noremap = false})
-                    -- Use K to show documentation in preview window.
-                    vim.api.nvim_set_keymap('n', 'K',
-                                            '<Cmd>call CocActionAsync("doHover")<CR>',
-                                            {noremap = true})
-                    -- Format
-                    vim.api.nvim_set_keymap('n', '<leader>fm',
-                                            '<Cmd>call CocActionAsync("format")<CR>',
-                                            {noremap = true})
-                end
-            }
-        }
+      'neoclide/coc.nvim',
+      branch = 'release',
+      config = function()
+          -- GoTo code navigation.
+          vim.api.nvim_set_keymap('n', 'gd', '<Plug>(coc-definition)',
+                                  {noremap = false})
+          vim.api.nvim_set_keymap('n', '<leader>D',
+                                  '<Plug>(coc-type-definition)',
+                                  {noremap = false})
+          vim.api.nvim_set_keymap('n', 'gi',
+                                  '<Plug>(coc-implementation)',
+                                  {noremap = false})
+          vim.api.nvim_set_keymap('n', 'gr', '<Plug>(coc-references)',
+                                  {noremap = false})
+          -- Use `:CocDiagnostics` to get all diagnostics of current buffer in location list.
+          vim.api.nvim_set_keymap('n', '[d',
+                                  '<Plug>(coc-diagnostic-prev)',
+                                  {noremap = false})
+          vim.api.nvim_set_keymap('n', ']d',
+                                  '<Plug>(coc-diagnostic-next)',
+                                  {noremap = false})
+          -- Use K to show documentation in preview window.
+          vim.api.nvim_set_keymap('n', 'K',
+                                  '<Cmd>call CocActionAsync("doHover")<CR>',
+                                  {noremap = true})
+          -- Format
+          vim.api.nvim_set_keymap('n', '<leader>fm',
+                                  '<Cmd>call CocActionAsync("format")<CR>',
+                                  {noremap = true})
+          vim.g.coc_global_extensions = {'coc-json', 'coc-jedi', 'coc-sh', 'coc-metals'}
+      end
     }
-    vim.g.coc_global_extensions = {'coc-json', 'coc-jedi', 'coc-sh'}
 
 end)
