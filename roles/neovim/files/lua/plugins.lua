@@ -170,7 +170,11 @@ return require('packer').startup(function()
           vim.api.nvim_set_keymap('n', '<leader>fm',
                                   '<Cmd>call CocActionAsync("format")<CR>',
                                   {noremap = true})
-          vim.g.coc_global_extensions = {'coc-json', 'coc-jedi', 'coc-sh', 'coc-metals'}
+          -- Yank list (coc-yank)
+          vim.api.nvim_set_keymap('n', '<leader>y',
+                                  '<Cmd>CocList -A --normal yank<CR>',
+                                  {noremap = true})
+          vim.g.coc_global_extensions = {'coc-json', 'coc-jedi', 'coc-sh', 'coc-metals', 'coc-yank'}
       end
     }
 
