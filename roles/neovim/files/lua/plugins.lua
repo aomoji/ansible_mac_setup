@@ -45,6 +45,7 @@ return require('packer').startup(function()
         "blackCauldron7/surround.nvim",
         -- 単語選択→囲む：viw→s<char>
         -- 他の文字で囲む：sr<from><to>
+        -- 囲み文字を削除する：sd<char>
         config = function() require"surround".setup {} end
     }
 
@@ -115,7 +116,14 @@ return require('packer').startup(function()
         end
     }
 
-    use {'tyrannicaltoucan/vim-deep-space'}
+    -- use {'tyrannicaltoucan/vim-deep-space'}
+    use {
+        'folke/tokyonight.nvim',
+        config = function()
+            vim.cmd("colorscheme tokyonight")
+        end
+    }
+    vim.g.tokyonight_style = "night"
 
     use {
         'akinsho/bufferline.nvim',
@@ -128,7 +136,6 @@ return require('packer').startup(function()
                                     {noremap = true})
             vim.api.nvim_set_keymap('n', '<C-c>', ':BufferLinePickClose<CR>',
                                     {noremap = true})
-            vim.g.bufferline = {icon_close_tab = 'X'}
         end
     }
 
