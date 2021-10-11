@@ -25,6 +25,7 @@ nnoremap j gj
 nnoremap k gk
 nnoremap 0 g0
 nnoremap $ g$
+set scrolloff=10 " スクロールしても上下10行は空ける
 set autoread
 " set mouse=a " マウスを利用可能にする
 set showcmd " 入力中のコマンドを表示する
@@ -36,6 +37,7 @@ set shiftwidth=2 " 挿入するインデントの幅
 set smarttab " 行頭の余白内で Tab を打ち込むと、'shiftwidth' の数だけインデントする
 set list " 不可視文字を表示する
 set number " 行番号の表示
+set relativenumber " 相対的な行番号を表示
 set showmatch " 対応する括弧を強調
 set autoindent " 改行時に前の行のインデントを継続する
 set smartindent " 改行時に入力された行の末尾に合わせて次の行のインデントを増減する
