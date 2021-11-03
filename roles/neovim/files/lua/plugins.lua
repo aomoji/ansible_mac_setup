@@ -148,6 +148,58 @@ return require('packer').startup(function()
     use {'tomtom/tcomment_vim'}
 
     use {
+      'mfussenegger/nvim-dap',
+      config = function()
+        local dap = require('dap')
+        dap.adapters.python = {
+          type = 'executable';
+          command = os.getenv('HOME') .. '/opt/anaconda3/bin/python';
+          args = { '-m', 'debugpy.adapter' };
+        }
+        dap.configurations.python = {
+          {
+            type = 'python';
+            request = 'launch';
+            name = "launch file";
+            program = "${file}";
+            pythonpath = function()
+              return os.getenv('HOME') .. '/opt/anaconda3/bin/python'
+            end;
+          },
+        }
+        vim.api.nvim_set_keymap('n', '<leader>con', "<cmd>lua require'dap'.continue()<cr>",
+                                {noremap = false})
+        vim.api.nvim_set_keymap('n', '<leader>ne', "<cmd>lua require'dap'.step_over()<cr>",
+                                {noremap = false})
+        vim.api.nvim_set_keymap('n', '<leader>sin', "<cmd>lua require'dap'.step_into()<cr>",
+                                {noremap = false})
+        vim.api.nvim_set_keymap('n', '<leader>sout', "<cmd>lua require'dap'.step_out()<cr>",
+                                {noremap = false})
+        vim.api.nvim_set_keymap('n', '<leader>B', "<cmd>lua require'dap'.toggle_breakpoint()<cr>",
+                                {noremap = false})
+        vim.api.nvim_set_keymap('n', '<leader>dr', "<cmd>lua require'dap'.repl_open()<cr>",
+                                {noremap = false})
+        vim.api.nvim_set_keymap('n', '<leader>dl', "<cmd>lua require'dap'.run_last()<cr>",
+                                {noremap = false})
+        vim.api.nvim_set_keymap('n', '<leader>val', "<cmd>lua require('dap.ui.widgets').hover()<cr>",
+                                {noremap = false})
+      end
+    }
+
+    use {
+      "rcarriga/nvim-dap-ui",
+      config = function()
+        vim.api.nvim_set_keymap('n', '<leader>dset', "<cmd>lua require('dapui').setup()<cr>",
+                                {noremap = false})
+        vim.api.nvim_set_keymap('n', '<leader>dtog', "<cmd>lua require('dapui').toggle()<cr>",
+                                {noremap = false})
+      end,
+      requires = {
+        "mfussenegger/nvim-dap"
+      }
+    }
+
+    use {
       'neoclide/coc.nvim',
       branch = 'release',
       config = function()
