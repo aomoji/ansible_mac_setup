@@ -187,6 +187,23 @@ return require('packer').startup(function()
     }
 
     use {
+      'nvim-telescope/telescope-dap.nvim',
+      config = function()
+        require('telescope').load_extension('dap')
+        vim.api.nvim_set_keymap('n', '<leader>dcc', '<cmd>lua require"telescope".extensions.dap.commands{}<cr>',
+                                {noremap = false})
+        vim.api.nvim_set_keymap('n', '<leader>dco', '<cmd>lua require"telescope".extensions.dap.configurations{}<cr>',
+                                {noremap = false})
+        vim.api.nvim_set_keymap('n', '<leader>dlb', '<cmd>lua require"telescope".extensions.dap.list_breakpoints{}<cr>',
+                                {noremap = false})
+        vim.api.nvim_set_keymap('n', '<leader>dv', '<cmd>lua require"telescope".extensions.dap.variables{}<cr>',
+                                {noremap = false})
+        vim.api.nvim_set_keymap('n', '<leader>df', '<cmd>lua require"telescope".extensions.dap.frames{}<cr>',
+                                {noremap = false})
+      end
+    }
+
+    use {
       "rcarriga/nvim-dap-ui",
       config = function()
         vim.api.nvim_set_keymap('n', '<leader>dset', "<cmd>lua require('dapui').setup()<cr>",
