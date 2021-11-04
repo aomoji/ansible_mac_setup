@@ -216,6 +216,18 @@ return require('packer').startup(function()
       }
     }
 
+    use { 'mg979/vim-visual-multi' }
+
+    use {
+      'SirVer/ultisnips',
+      requires = {'honza/vim-snippets'},
+      config = function()
+        vim.g.UltiSnipsExpandTrigger = "<tab>"
+        vim.g.UltiSnipsJumpForwardTrigger = "<c-b>"
+        vim.g.UltiSnipsJumpBackwardTrigger = "<c-z>"
+      end
+    }
+
     use {
       'neoclide/coc.nvim',
       branch = 'release',
