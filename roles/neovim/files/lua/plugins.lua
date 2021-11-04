@@ -216,7 +216,13 @@ return require('packer').startup(function()
       }
     }
 
-    use { 'mg979/vim-visual-multi' }
+    use {
+      'mg979/vim-visual-multi',
+      config = function()
+        vim.cmd("let g:VM_maps = {}")
+        vim.cmd("let g:VM_maps['Find Under'] = '<C-m>'")
+      end
+    }
 
     use {
       'SirVer/ultisnips',
