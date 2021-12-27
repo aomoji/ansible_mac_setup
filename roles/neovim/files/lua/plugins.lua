@@ -86,6 +86,10 @@ return require('packer').startup(function()
                                     '<Cmd>Telescope current_buffer_fuzzy_find<CR>',
                                     {noremap = true})
         end
+        -- <C-x> go to file selection as a split
+        -- <C-v> go to file selection as a vsplit
+        -- <C-t> go to a file in a new tab
+        --`<C-e>`: creates new file in current directory, creates new directory if the name contains a trailing '/'
     }
 
     use {
@@ -118,12 +122,30 @@ return require('packer').startup(function()
 
     -- use {'tyrannicaltoucan/vim-deep-space'}
     use {
-        'folke/tokyonight.nvim',
+      'rebelot/kanagawa.nvim',
         config = function()
-            vim.cmd("colorscheme tokyonight")
+            vim.cmd("colorscheme kanagawa")
         end
     }
-    vim.g.tokyonight_style = "night"
+    -- use {
+    --     'folke/tokyonight.nvim',
+    --     config = function()
+    --         vim.cmd("colorscheme tokyonight")
+    --     end
+    -- }
+    -- vim.g.tokyonight_style = "night"
+    --
+    use {
+      'kyazdani42/nvim-tree.lua',
+      requires = {
+        'kyazdani42/nvim-web-devicons', -- optional, for file icon
+      },
+      config = function()
+        require'nvim-tree'.setup {}
+        vim.api.nvim_set_keymap('n', '<leader>t', ':NvimTreeToggle<CR>',
+                                {noremap = true})
+      end
+    }
 
     use {
         'akinsho/bufferline.nvim',
