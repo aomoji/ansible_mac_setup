@@ -59,9 +59,6 @@ return require('packer').startup(function()
             vim.api.nvim_set_keymap('n', '<leader>fg',
                                     '<Cmd>Telescope live_grep<CR>',
                                     {noremap = true})
-            vim.api.nvim_set_keymap('n', '<leader>fl',
-                                    '<Cmd>Telescope file_browser<CR>',
-                                    {noremap = true})
             vim.api.nvim_set_keymap('n', '<leader>fp',
                                     '<Cmd>Telescope old_files<CR>',
                                     {noremap = true})
@@ -90,6 +87,19 @@ return require('packer').startup(function()
         -- <C-v> go to file selection as a vsplit
         -- <C-t> go to a file in a new tab
         --`<C-e>`: creates new file in current directory, creates new directory if the name contains a trailing '/'
+    }
+
+    use {
+      "nvim-telescope/telescope-file-browser.nvim",
+      config = function()
+        require('telescope').load_extension('file_browser')
+        vim.api.nvim_set_keymap(
+          "n",
+          "<space>fl",
+          "<cmd>lua require 'telescope'.extensions.file_browser.file_browser()<CR>",
+          {noremap = true}
+        )
+      end
     }
 
     use {
