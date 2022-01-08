@@ -104,6 +104,7 @@
             "command": "black",
             "args": [
               "-q",
+              "-l 79",
               "-"
             ]
           },
@@ -151,5 +152,9 @@
         }
       }
     }
+  },
+  "sql.database": "bigquery",
+  "sql.formatOptions": {
+    "language": "bigquery"
   }
 }
