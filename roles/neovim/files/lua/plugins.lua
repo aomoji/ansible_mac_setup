@@ -49,73 +49,6 @@ return require('packer').startup(function()
         config = function() require"surround".setup {} end
     }
 
-    use {
-        'nvim-telescope/telescope.nvim',
-        requires = {{'nvim-lua/popup.nvim'}, {'nvim-lua/plenary.nvim'}},
-        config = function()
-            vim.api.nvim_set_keymap('n', '<leader>ff',
-                                    '<Cmd>Telescope find_files<CR>',
-                                    {noremap = true})
-            vim.api.nvim_set_keymap('n', '<leader>fg',
-                                    '<Cmd>Telescope live_grep<CR>',
-                                    {noremap = true})
-            vim.api.nvim_set_keymap('n', '<leader>fp',
-                                    '<Cmd>Telescope old_files<CR>',
-                                    {noremap = true})
-            vim.api.nvim_set_keymap('n', '<leader>fb',
-                                    '<Cmd>Telescope buffers<CR>',
-                                    {noremap = true})
-            vim.api.nvim_set_keymap('n', '<leader>fh',
-                                    '<Cmd>Telescope help_tags<CR>',
-                                    {noremap = true})
-            vim.api.nvim_set_keymap('n', '<leader>fc',
-                                    '<Cmd>Telescope commands<CR>',
-                                    {noremap = true})
-            vim.api.nvim_set_keymap('n', '<leader>ma',
-                                    '<Cmd>Telescope marks<CR>', {noremap = true})
-            vim.api.nvim_set_keymap('n', '<leader>fh',
-                                    '<Cmd>Telescope command_history<CR>',
-                                    {noremap = true})
-            vim.api.nvim_set_keymap('n', '<leader>fr',
-                                    '<Cmd>Telescope registers<CR>',
-                                    {noremap = true})
-            vim.api.nvim_set_keymap('n', '<leader>bf',
-                                    '<Cmd>Telescope current_buffer_fuzzy_find<CR>',
-                                    {noremap = true})
-        end
-        -- <C-x> go to file selection as a split
-        -- <C-v> go to file selection as a vsplit
-        -- <C-t> go to a file in a new tab
-        --`<C-e>`: creates new file in current directory, creates new directory if the name contains a trailing '/'
-    }
-
-    use {
-      "nvim-telescope/telescope-file-browser.nvim",
-      config = function()
-        require('telescope').load_extension('file_browser')
-        vim.api.nvim_set_keymap(
-          "n",
-          "<space>fl",
-          "<cmd>lua require 'telescope'.extensions.file_browser.file_browser()<CR>",
-          {noremap = true}
-        )
-      end
-    }
-
-    use {
-        "numtostr/FTerm.nvim",
-        config = function()
-            require'FTerm'.setup({
-                dimensions = {height = 0.8, width = 0.8, x = 0.5, y = 0.5},
-                border = 'single' -- or 'double'
-            })
-
-            vim.api.nvim_set_keymap('n', '<leader>git',
-                                    "<Cmd>lua require('FTerm.terminal'):new():setup({cmd='gitui'}):toggle()<CR>",
-                                    {noremap = true})
-        end
-    }
-
     use {'lukas-reineke/indent-blankline.nvim'}
 
     use {
@@ -130,21 +63,13 @@ return require('packer').startup(function()
         end
     }
 
-    -- use {'tyrannicaltoucan/vim-deep-space'}
     use {
       'rebelot/kanagawa.nvim',
         config = function()
             vim.cmd("colorscheme kanagawa")
         end
     }
-    -- use {
-    --     'folke/tokyonight.nvim',
-    --     config = function()
-    --         vim.cmd("colorscheme tokyonight")
-    --     end
-    -- }
-    -- vim.g.tokyonight_style = "night"
-    --
+
     use {
       'kyazdani42/nvim-tree.lua',
       requires = {
@@ -152,7 +77,7 @@ return require('packer').startup(function()
       },
       config = function()
         require'nvim-tree'.setup {}
-        vim.api.nvim_set_keymap('n', '<leader>t', ':NvimTreeToggle<CR>',
+        vim.api.nvim_set_keymap('n', '<leader>fl', ':NvimTreeToggle<CR>',
                                 {noremap = true})
       end
     }
@@ -219,23 +144,6 @@ return require('packer').startup(function()
     }
 
     use {
-      'nvim-telescope/telescope-dap.nvim',
-      config = function()
-        require('telescope').load_extension('dap')
-        vim.api.nvim_set_keymap('n', '<leader>dcc', '<cmd>lua require"telescope".extensions.dap.commands{}<cr>',
-                                {noremap = false})
-        vim.api.nvim_set_keymap('n', '<leader>dco', '<cmd>lua require"telescope".extensions.dap.configurations{}<cr>',
-                                {noremap = false})
-        vim.api.nvim_set_keymap('n', '<leader>dlb', '<cmd>lua require"telescope".extensions.dap.list_breakpoints{}<cr>',
-                                {noremap = false})
-        vim.api.nvim_set_keymap('n', '<leader>dv', '<cmd>lua require"telescope".extensions.dap.variables{}<cr>',
-                                {noremap = false})
-        vim.api.nvim_set_keymap('n', '<leader>df', '<cmd>lua require"telescope".extensions.dap.frames{}<cr>',
-                                {noremap = false})
-      end
-    }
-
-    use {
       "rcarriga/nvim-dap-ui",
       config = function()
         vim.api.nvim_set_keymap('n', '<leader>dset', "<cmd>lua require('dapui').setup()<cr>",
@@ -269,6 +177,14 @@ return require('packer').startup(function()
     use {
       'neoclide/coc.nvim',
       branch = 'release',
+      requires = {
+        'junegunn/fzf',
+        { 'ryanoasis/vim-devicons', 
+          config = function()
+            vim.g.fzf_preview_use_dev_icons = 1
+          end
+        }
+      },
       config = function()
           -- GoTo code navigation.
           vim.api.nvim_set_keymap('n', 'gd', '<Plug>(coc-definition)',
@@ -300,8 +216,80 @@ return require('packer').startup(function()
           vim.api.nvim_set_keymap('n', '<leader>y',
                                   '<Cmd>CocList -A --normal yank<CR>',
                                   {noremap = true})
-          vim.g.coc_global_extensions = {'coc-json', 'coc-jedi', 'coc-sh', 'coc-metals', 'coc-yank'}
+          -- (coc-fzf-preview)
+          vim.api.nvim_set_keymap('n', '<leader>ff',
+                                  ':CocCommand fzf-preview.DirectoryFiles<CR>',
+                                  {noremap = true})
+          -- (coc-fzf-preview)
+          vim.api.nvim_set_keymap('n', '<leader>fg',
+                                  ':CocCommand fzf-preview.ProjectGrep<Space>',
+                                  {noremap = true})
+          -- (coc-fzf-preview)
+          vim.api.nvim_set_keymap('n', '<leader>fo',
+                                  ':CocCommand fzf-preview.ProjectOldFiles<CR>',
+                                  {noremap = true})
+          -- (coc-fzf-preview)
+          vim.api.nvim_set_keymap('n', '<leader>fp',
+                                  ':CocCommand fzf-preview.ProjectMruFiles<CR>',
+                                  {noremap = true})
+          -- (coc-fzf-preview)
+          vim.api.nvim_set_keymap('n', '<leader>fh',
+                                  ':CocCommand fzf-preview.CommandPalette<CR>',
+                                  {noremap = true})
+          -- (coc-fzf-preview)
+          vim.api.nvim_set_keymap('n', '<leader>ma',
+                                  ':CocCommand fzf-preview.Marks<CR>',
+                                  {noremap = true})
+          -- (coc-fzf-preview)
+          vim.api.nvim_set_keymap('n', '<leader>fr',
+                                  ':CocCommand fzf-preview.Yankround<CR>',
+                                  {noremap = true})
+          -- (coc-fzf-preview)
+          vim.api.nvim_set_keymap('n', '<leader>bf',
+                                  ':CocCommand fzf-preview.Buffers<CR>',
+                                  {noremap = true})
+          -- (coc-fzf-preview)
+          vim.api.nvim_set_keymap('n', '<leader>bl',
+                                  ':CocCommand fzf-preview.BufferLines<CR>',
+                                  {noremap = true})
+          -- (coc-fzf-preview)
+          vim.api.nvim_set_keymap('n', '<leader>qf',
+                                  ':CocCommand fzf-preview.QuickFix<CR>',
+                                  {noremap = true})
+          -- (coc-fzf-preview)
+          vim.api.nvim_set_keymap('n', '<leader>ch',
+                                  ':CocCommand fzf-preview.Changes<CR>',
+                                  {noremap = true})
+          -- (coc-fzf-preview)
+          vim.api.nvim_set_keymap('n', '<leader>git',
+                                  ':CocCommand fzf-preview.GitActions<CR>',
+                                  {noremap = true})
+          -- (coc-fzf-preview)
+          vim.api.nvim_set_keymap('n', '<leader>da',
+                                  ':CocCommand fzf-preview.CocDiagnostics<CR>',
+                                  {noremap = true})
+          -- (coc-fzf-preview)
+          vim.api.nvim_set_keymap('n', '<leader>dc',
+                                  ':CocCommand fzf-preview.CocCurrentDiagnostics<CR>',
+                                  {noremap = true})
+          vim.api.nvim_set_keymap('n', '<leader>y',
+                                  '<Cmd>CocList -A --normal yank<CR>',
+                                  {noremap = true})
+
+          vim.g.coc_global_extensions = {'coc-json', 'coc-jedi', 'coc-sh', 'coc-metals', 'coc-yank', 'coc-sql', 'coc-fzf-preview', 'coc-lua'}
       end
+    }
+
+    use {
+      'thinca/vim-qfreplace' 
+    }
+
+    use {
+      'lambdalisue/gina.vim'
+    }
+
+    use {
+      "LeafCage/yankround.vim"
     }
 
 end)
