@@ -52,7 +52,6 @@ set hidden " 保存されていないファイルがあるときでも別のフ�
 " nnoremap <leader>n :noh<CR>
 nnoremap <ESC><ESC> :nohl<CR>
 
-
 " escで日本語off
 if has('mac')
   set ttimeoutlen=1
@@ -61,6 +60,14 @@ if has('mac')
     autocmd!
     autocmd InsertLeave * :call system(g:imeoff)
   augroup END
+endif
+
+" shellの設定 for coc-fzf-preview
+if executable('fish')
+    " use fish for embedded terminals
+    set shell=fish
+    " use bash for else
+    let $SHELL = 'bash'
 endif
 
 set termguicolors
