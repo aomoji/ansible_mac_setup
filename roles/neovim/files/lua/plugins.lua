@@ -221,6 +221,10 @@ return require('packer').startup(function()
                                   ':CocCommand fzf-preview.DirectoryFiles<CR>',
                                   {noremap = true})
           -- (coc-fzf-preview)
+          vim.api.nvim_set_keymap('n', '<leader>fr',
+                                  ':CocCommand fzf-preview.FromResources<Space>',
+                                  {noremap = true})
+          -- (coc-fzf-preview)
           vim.api.nvim_set_keymap('n', '<leader>fg',
                                   ':CocCommand fzf-preview.ProjectGrep<Space>',
                                   {noremap = true})
@@ -241,7 +245,7 @@ return require('packer').startup(function()
                                   ':CocCommand fzf-preview.Marks<CR>',
                                   {noremap = true})
           -- (coc-fzf-preview)
-          vim.api.nvim_set_keymap('n', '<leader>fr',
+          vim.api.nvim_set_keymap('n', '<leader>re',
                                   ':CocCommand fzf-preview.Yankround<CR>',
                                   {noremap = true})
           -- (coc-fzf-preview)
