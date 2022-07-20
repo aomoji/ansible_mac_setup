@@ -23,8 +23,10 @@ return require('packer').startup(function()
         'nvim-treesitter/nvim-treesitter',
         config = function()
             require'nvim-treesitter.configs'.setup {
-                ensure_installed = "maintained", -- one of "all", "maintained" (parsers with maintainers), or a list of languages
+                ensure_installed = {"bash", "fish", "python", "scala", "rust", "lua"}, -- one of "all", "maintained" (parsers with maintainers), or a list of languages
                 ignore_install = {"javascript"}, -- List of parsers to ignore installing
+                sync_install = true,
+                auto_install = true,
                 highlight = {
                     enable = true, -- false will disable the whole extension
                     disable = {"javascript"}, -- list of language that will be disabled
@@ -42,7 +44,7 @@ return require('packer').startup(function()
     use {'cohama/lexima.vim'}
 
     use {
-        "blackCauldron7/surround.nvim",
+        "ur4ltz/surround.nvim",
         -- 単語選択→囲む：viw→s<char>
         -- 他の文字で囲む：sr<from><to>
         -- 囲み文字を削除する：sd<char>
@@ -84,6 +86,7 @@ return require('packer').startup(function()
 
     use {
         'akinsho/bufferline.nvim',
+        tag = "v2.*",
         requires = {'kyazdani42/nvim-web-devicons'},
         config = function()
             require("bufferline").setup()
@@ -276,16 +279,20 @@ return require('packer').startup(function()
           vim.api.nvim_set_keymap('n', '<leader>dc',
                                   ':CocCommand fzf-preview.CocCurrentDiagnostics<CR>',
                                   {noremap = true})
+          -- (coc-fzf-preview)
+          vim.api.nvim_set_keymap('n', '<leader>ou',
+                                  ':CocCommand fzf-preview.CocOutline<CR>',
+                                  {noremap = true})
           vim.api.nvim_set_keymap('n', '<leader>y',
                                   '<Cmd>CocList -A --normal yank<CR>',
                                   {noremap = true})
 
-          vim.g.coc_global_extensions = {'coc-json', 'coc-jedi', 'coc-sh', 'coc-metals', 'coc-yank', 'coc-sql', 'coc-fzf-preview', 'coc-lua'}
+          vim.g.coc_global_extensions = {'coc-json', 'coc-jedi', 'coc-sh', 'coc-metals', 'coc-yank', 'coc-sqlfluff', 'coc-fzf-preview', 'coc-lua'}
       end
     }
 
     use {
-      'thinca/vim-qfreplace' 
+      'thinca/vim-qfreplace'
     }
 
     use {
@@ -294,6 +301,13 @@ return require('packer').startup(function()
 
     use {
       "LeafCage/yankround.vim"
+    }
+
+    use { 'skanehira/jumpcursor.vim',
+      config = function()
+        vim.api.nvim_set_keymap('n', '<leader>j', "<Plug>(jumpcursor-jump)",
+                                {noremap = false})
+      end
     }
 
 end)
