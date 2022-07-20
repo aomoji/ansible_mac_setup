@@ -153,8 +153,5 @@
       }
     }
   },
-  "sql.database": "bigquery",
-  "sql.formatOptions": {
-    "language": "bigquery"
-  }
+  "sqlfluff.dialect": "bigquery"
 }
