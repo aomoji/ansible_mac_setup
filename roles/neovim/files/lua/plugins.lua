@@ -283,11 +283,16 @@ return require('packer').startup(function()
           vim.api.nvim_set_keymap('n', '<leader>ou',
                                   ':CocCommand fzf-preview.CocOutline<CR>',
                                   {noremap = true})
+          -- (coc-fzf-preview)
           vim.api.nvim_set_keymap('n', '<leader>y',
                                   '<Cmd>CocList -A --normal yank<CR>',
                                   {noremap = true})
+          -- (coc-fzf-preview)
+          vim.api.nvim_set_keymap('n', '<leader>fb',
+                                  ':CocCommand fzf-preview.Buffers',
+                                  {noremap = true})
 
-          vim.g.coc_global_extensions = {'coc-json', 'coc-jedi', 'coc-sh', 'coc-metals', 'coc-yank', 'coc-sqlfluff', 'coc-fzf-preview', 'coc-lua'}
+          vim.g.coc_global_extensions = {'coc-json', 'coc-jedi', 'coc-sh', 'coc-metals', 'coc-yank', 'coc-sqlfluff', 'coc-fzf-preview', 'coc-lua', 'coc-rls'}
       end
     }
 
