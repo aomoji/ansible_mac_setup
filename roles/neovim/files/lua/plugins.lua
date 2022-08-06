@@ -288,6 +288,7 @@ return require('packer').startup(function()
                                   '<Cmd>CocList -A --normal yank<CR>',
                                   {noremap = true})
           -- (coc-fzf-preview)
+          -- press ^Q to delete buffers
           vim.api.nvim_set_keymap('n', '<leader>fb',
                                   ':CocCommand fzf-preview.Buffers',
                                   {noremap = true})
