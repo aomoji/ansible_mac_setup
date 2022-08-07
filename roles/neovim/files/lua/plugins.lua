@@ -252,10 +252,6 @@ return require('packer').startup(function()
                                   ':CocCommand fzf-preview.Yankround<CR>',
                                   {noremap = true})
           -- (coc-fzf-preview)
-          vim.api.nvim_set_keymap('n', '<leader>bf',
-                                  ':CocCommand fzf-preview.Buffers<CR>',
-                                  {noremap = true})
-          -- (coc-fzf-preview)
           vim.api.nvim_set_keymap('n', '<leader>bl',
                                   ':CocCommand fzf-preview.BufferLines<CR>',
                                   {noremap = true})
@@ -290,7 +286,7 @@ return require('packer').startup(function()
           -- (coc-fzf-preview)
           -- press ^Q to delete buffers
           vim.api.nvim_set_keymap('n', '<leader>fb',
-                                  ':CocCommand fzf-preview.Buffers',
+                                  ':CocCommand fzf-preview.Buffers<CR>',
                                   {noremap = true})
 
           vim.g.coc_global_extensions = {'coc-json', 'coc-jedi', 'coc-sh', 'coc-metals', 'coc-yank', 'coc-sqlfluff', 'coc-fzf-preview', 'coc-lua', 'coc-rls'}
