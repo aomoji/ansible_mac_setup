@@ -27,7 +27,7 @@ nnoremap 0 g0
 nnoremap $ g$
 set scrolloff=10 " スクロールしても上下10行は空ける
 set autoread
-" set mouse=a " マウスを利用可能にする
+set mouse=a " マウスを利用可能にする
 set showcmd " 入力中のコマンドを表示する
 set smartcase " 検索で大文字と小文字の違いを無視する
 set hlsearch " 検索結果をハイライトする
