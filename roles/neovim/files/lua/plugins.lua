@@ -105,7 +105,14 @@ return require('packer').startup(function()
         config = function() require('gitsigns').setup() end
     }
 
-    use {'tomtom/tcomment_vim'}
+    use {
+      'tomtom/tcomment_vim',
+      config = function()
+          require("bufferline").setup()
+          vim.api.nvim_set_keymap('n', '<C-/>', ':TComment<CR>',
+                                  {noremap = true})
+      end
+    }
 
     use {
       'mfussenegger/nvim-dap',
@@ -284,12 +291,11 @@ return require('packer').startup(function()
                                   '<Cmd>CocList -A --normal yank<CR>',
                                   {noremap = true})
           -- (coc-fzf-preview)
-          -- press ^Q to delete buffers
           vim.api.nvim_set_keymap('n', '<leader>fb',
                                   ':CocCommand fzf-preview.Buffers<CR>',
                                   {noremap = true})
 
-          vim.g.coc_global_extensions = {'coc-json', 'coc-jedi', 'coc-sh', 'coc-metals', 'coc-yank', 'coc-sqlfluff', 'coc-fzf-preview', 'coc-lua', 'coc-rls'}
+          vim.g.coc_global_extensions = {'coc-json', 'coc-jedi', 'coc-sh', 'coc-metals', 'coc-yank', 'coc-sqlfluff', 'coc-fzf-preview', 'coc-lua', 'coc-rust-analyzer'}
       end
     }
 
