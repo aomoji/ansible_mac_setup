@@ -153,5 +153,6 @@
       }
     }
   },
-  "sqlfluff.dialect": "bigquery"
+  "sqlfluff.dialect": "bigquery",
+  "sqlfluff.lintOnChange": false
 }
