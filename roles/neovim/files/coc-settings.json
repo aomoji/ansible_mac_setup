@@ -7,8 +7,8 @@
   // jedi
   "jedi.enable": true,
   "jedi.startupMessage": false,
-  "jedi.executable.command": "~/opt/anaconda3/bin/jedi-language-server",
-  "jedi.diagnostics.enable": false,
+  "jedi.executable.command": "jedi-language-server",
+  "jedi.diagnostics.enable": true,
   "jedi.hover.enable": true,
   "languageserver": {
     "metals": {
@@ -153,6 +153,6 @@
       }
     }
   },
-  "sqlfluff.dialect": "bigquery",
+  "sqlfluff.dialect": "snowflake",
   "sqlfluff.lintOnChange": false
 }
