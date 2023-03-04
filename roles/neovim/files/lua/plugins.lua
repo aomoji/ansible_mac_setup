@@ -105,14 +105,7 @@ return require('packer').startup(function()
         config = function() require('gitsigns').setup() end
     }
 
-    use {
-      'tomtom/tcomment_vim',
-      config = function()
-          require("bufferline").setup()
-          vim.api.nvim_set_keymap('n', '<C-/>', ':TComment<CR>',
-                                  {noremap = true})
-      end
-    }
+    use {'tomtom/tcomment_vim'}
 
     use {
       'mfussenegger/nvim-dap',
@@ -170,7 +163,7 @@ return require('packer').startup(function()
       'mg979/vim-visual-multi',
       config = function()
         vim.cmd("let g:VM_maps = {}")
-        vim.cmd("let g:VM_maps['Find Under'] = '<C-m>'")
+        vim.cmd("let g:VM_maps['Find Under'] = '<leader>m'")
       end
     }
 
@@ -182,6 +175,46 @@ return require('packer').startup(function()
         vim.g.UltiSnipsJumpForwardTrigger = "<c-b>"
         vim.g.UltiSnipsJumpBackwardTrigger = "<c-z>"
       end
+    }
+
+    use {
+        'nvim-telescope/telescope.nvim',
+        requires = {{'nvim-lua/popup.nvim'}, {'nvim-lua/plenary.nvim'}},
+        config = function()
+            vim.api.nvim_set_keymap('n', '<leader>ff',
+                                    '<Cmd>Telescope find_files<CR>',
+                                    {noremap = true})
+            vim.api.nvim_set_keymap('n', '<leader>fg',
+                                    '<Cmd>Telescope live_grep<CR>',
+                                    {noremap = true})
+            vim.api.nvim_set_keymap('n', '<leader>fo',
+                                    '<Cmd>Telescope old_files<CR>',
+                                    {noremap = true})
+            vim.api.nvim_set_keymap('n', '<leader>fb',
+                                    '<Cmd>Telescope buffers<CR>',
+                                    {noremap = true})
+            vim.api.nvim_set_keymap('n', '<leader>fh',
+                                    '<Cmd>Telescope help_tags<CR>',
+                                    {noremap = true})
+            vim.api.nvim_set_keymap('n', '<leader>fc',
+                                    '<Cmd>Telescope commands<CR>',
+                                    {noremap = true})
+            vim.api.nvim_set_keymap('n', '<leader>fa',
+                                    '<Cmd>Telescope marks<CR>', {noremap = true})
+            vim.api.nvim_set_keymap('n', '<leader>fh',
+                                    '<Cmd>Telescope command_history<CR>',
+                                    {noremap = true})
+            vim.api.nvim_set_keymap('n', '<leader>fr',
+                                    '<Cmd>Telescope registers<CR>',
+                                    {noremap = true})
+            vim.api.nvim_set_keymap('n', '<leader>bf',
+                                    '<Cmd>Telescope current_buffer_fuzzy_find<CR>',
+                                    {noremap = true})
+        end
+        -- <C-x> go to file selection as a split
+        -- <C-v> go to file selection as a vsplit
+        -- <C-t> go to a file in a new tab
+        --`<C-e>`: creates new file in current directory, creates new directory if the name contains a trailing '/'
     }
 
     use {
@@ -226,81 +259,13 @@ return require('packer').startup(function()
           vim.api.nvim_set_keymap('n', '<leader>y',
                                   '<Cmd>CocList -A --normal yank<CR>',
                                   {noremap = true})
-          -- (coc-fzf-preview)
-          vim.api.nvim_set_keymap('n', '<leader>ff',
-                                  ':CocCommand fzf-preview.DirectoryFiles<CR>',
-                                  {noremap = true})
-          -- (coc-fzf-preview)
-          vim.api.nvim_set_keymap('n', '<leader>fr',
-                                  ':CocCommand fzf-preview.FromResources<Space>',
-                                  {noremap = true})
-          -- (coc-fzf-preview)
-          vim.api.nvim_set_keymap('n', '<leader>fg',
-                                  ':CocCommand fzf-preview.ProjectGrep<Space>',
-                                  {noremap = true})
-          -- (coc-fzf-preview)
-          vim.api.nvim_set_keymap('n', '<leader>fo',
-                                  ':CocCommand fzf-preview.ProjectOldFiles<CR>',
-                                  {noremap = true})
-          -- (coc-fzf-preview)
-          vim.api.nvim_set_keymap('n', '<leader>fp',
-                                  ':CocCommand fzf-preview.ProjectMruFiles<CR>',
-                                  {noremap = true})
-          -- (coc-fzf-preview)
-          vim.api.nvim_set_keymap('n', '<leader>fh',
-                                  ':CocCommand fzf-preview.CommandPalette<CR>',
-                                  {noremap = true})
-          -- (coc-fzf-preview)
-          vim.api.nvim_set_keymap('n', '<leader>ma',
-                                  ':CocCommand fzf-preview.Marks<CR>',
-                                  {noremap = true})
-          -- (coc-fzf-preview)
-          vim.api.nvim_set_keymap('n', '<leader>re',
-                                  ':CocCommand fzf-preview.Yankround<CR>',
-                                  {noremap = true})
-          -- (coc-fzf-preview)
-          vim.api.nvim_set_keymap('n', '<leader>bl',
-                                  ':CocCommand fzf-preview.BufferLines<CR>',
-                                  {noremap = true})
-          -- (coc-fzf-preview)
-          vim.api.nvim_set_keymap('n', '<leader>qf',
-                                  ':CocCommand fzf-preview.QuickFix<CR>',
-                                  {noremap = true})
-          -- (coc-fzf-preview)
-          vim.api.nvim_set_keymap('n', '<leader>ch',
-                                  ':CocCommand fzf-preview.Changes<CR>',
-                                  {noremap = true})
-          -- (coc-fzf-preview)
-          vim.api.nvim_set_keymap('n', '<leader>git',
-                                  ':CocCommand fzf-preview.GitActions<CR>',
-                                  {noremap = true})
-          -- (coc-fzf-preview)
-          vim.api.nvim_set_keymap('n', '<leader>da',
-                                  ':CocCommand fzf-preview.CocDiagnostics<CR>',
-                                  {noremap = true})
-          -- (coc-fzf-preview)
-          vim.api.nvim_set_keymap('n', '<leader>dc',
-                                  ':CocCommand fzf-preview.CocCurrentDiagnostics<CR>',
-                                  {noremap = true})
-          -- (coc-fzf-preview)
-          vim.api.nvim_set_keymap('n', '<leader>ou',
-                                  ':CocCommand fzf-preview.CocOutline<CR>',
-                                  {noremap = true})
-          -- (coc-fzf-preview)
-          vim.api.nvim_set_keymap('n', '<leader>y',
-                                  '<Cmd>CocList -A --normal yank<CR>',
-                                  {noremap = true})
-          -- (coc-fzf-preview)
-          vim.api.nvim_set_keymap('n', '<leader>fb',
-                                  ':CocCommand fzf-preview.Buffers<CR>',
-                                  {noremap = true})
-
-          vim.g.coc_global_extensions = {'coc-json', 'coc-jedi', 'coc-sh', 'coc-metals', 'coc-yank', 'coc-sqlfluff', 'coc-fzf-preview', 'coc-lua', 'coc-rust-analyzer'}
+          vim.g.coc_global_extensions = {'coc-json', 'coc-jedi', 'coc-sh', 'coc-metals', 'coc-yank', 'coc-sqlfluff', 'coc-lua'}
       end
     }
 
     use {
       'thinca/vim-qfreplace'
+      -- grep -> select -> ctr-q -> Qfreplace -> edit&save
     }
 
     use {
@@ -316,6 +281,45 @@ return require('packer').startup(function()
         vim.api.nvim_set_keymap('n', '<leader>j', "<Plug>(jumpcursor-jump)",
                                 {noremap = false})
       end
+    }
+
+    use {
+      "chrisbra/csv.vim"
+    }
+
+    use { 'PedramNavid/dbtpal',
+      config = function()
+        local dbt = require('dbtpal')
+        dbt.setup {
+          -- Path to the dbt executable
+          path_to_dbt = "dbt",
+
+          -- Path to the dbt project, if blank, will auto-detect
+          -- using currently open buffer for all sql,yml, and md files
+          path_to_dbt_project = "",
+
+          -- Path to dbt profiles directory
+          path_to_dbt_profiles_dir = vim.fn.expand "~/.dbt",
+
+          -- Search for ref/source files in macros and models folders
+          extended_path_search = true,
+
+          -- Prevent modifying sql files in target/(compiled|run) folders
+          protect_compiled_files = true
+
+        }
+
+        -- Setup key mappings
+
+        vim.keymap.set('n', '<leader>drf', dbt.run)
+        vim.keymap.set('n', '<leader>drp', dbt.run_all)
+        vim.keymap.set('n', '<leader>dtf', dbt.test)
+        vim.keymap.set('n', '<leader>dm', require('dbtpal.telescope').dbt_picker)
+
+        -- Enable Telescope Extension
+        require'telescope'.load_extension('dbtpal')
+        end,
+     requires = { { 'nvim-lua/plenary.nvim' }, {'nvim-telescope/telescope.nvim'} }
     }
 
 end)
