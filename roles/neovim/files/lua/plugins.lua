@@ -41,7 +41,10 @@ return require('packer').startup(function()
         run = ':TSUpdate'
     }
 
-    use {'cohama/lexima.vim'}
+    use {
+      "windwp/nvim-autopairs",
+        config = function() require("nvim-autopairs").setup {} end
+    }
 
     use {
         "ur4ltz/surround.nvim",
@@ -51,7 +54,17 @@ return require('packer').startup(function()
         config = function() require"surround".setup {} end
     }
 
-    use {'lukas-reineke/indent-blankline.nvim'}
+    use {
+      "lukas-reineke/indent-blankline.nvim",
+      config = function()
+        vim.opt.list = true
+        require"indent_blankline".setup {
+          space_char_blankline = " ",
+          show_current_context = true,
+          show_current_context_start = true
+        }
+      end
+    }
 
     use {
         'Xuyuanp/scrollbar.nvim',
@@ -72,6 +85,7 @@ return require('packer').startup(function()
         end
     }
 
+    -- TODO:便利機能がないか見てみる
     use {
       'kyazdani42/nvim-tree.lua',
       requires = {
@@ -84,6 +98,7 @@ return require('packer').startup(function()
       end
     }
 
+    -- TODO:便利機能がないか見てみる
     use {
         'akinsho/bufferline.nvim',
         tag = "v2.*",
@@ -100,12 +115,109 @@ return require('packer').startup(function()
     }
 
     use {
+      "RRethy/vim-illuminate",
+      config = function()
+        -- default configuration
+        require('illuminate').configure({
+            -- providers: provider used to get references in the buffer, ordered by priority
+            providers = {
+                'lsp',
+                'treesitter',
+                'regex',
+            },
+            -- delay: delay in milliseconds
+            delay = 100,
+            -- filetype_overrides: filetype specific overrides.
+            -- The keys are strings to represent the filetype while the values are tables that
+            -- supports the same keys passed to .configure except for filetypes_denylist and filetypes_allowlist
+            filetype_overrides = {},
+            -- filetypes_denylist: filetypes to not illuminate, this overrides filetypes_allowlist
+            filetypes_denylist = {
+                'dirvish',
+                'fugitive',
+            },
+            -- filetypes_allowlist: filetypes to illuminate, this is overriden by filetypes_denylist
+            filetypes_allowlist = {},
+            -- modes_denylist: modes to not illuminate, this overrides modes_allowlist
+            -- See `:help mode()` for possible values
+            modes_denylist = {},
+            -- modes_allowlist: modes to illuminate, this is overriden by modes_denylist
+            -- See `:help mode()` for possible values
+            modes_allowlist = {},
+            -- providers_regex_syntax_denylist: syntax to not illuminate, this overrides providers_regex_syntax_allowlist
+            -- Only applies to the 'regex' provider
+            -- Use :echom synIDattr(synIDtrans(synID(line('.'), col('.'), 1)), 'name')
+            providers_regex_syntax_denylist = {},
+            -- providers_regex_syntax_allowlist: syntax to illuminate, this is overriden by providers_regex_syntax_denylist
+            -- Only applies to the 'regex' provider
+            -- Use :echom synIDattr(synIDtrans(synID(line('.'), col('.'), 1)), 'name')
+            providers_regex_syntax_allowlist = {},
+            -- under_cursor: whether or not to illuminate under the cursor
+            under_cursor = true,
+            -- large_file_cutoff: number of lines at which to use large_file_config
+            -- The `under_cursor` option is disabled when this cutoff is hit
+            large_file_cutoff = nil,
+            -- large_file_config: config to use for large files (based on large_file_cutoff).
+            -- Supports the same keys passed to .configure
+            -- If nil, vim-illuminate will be disabled for large files.
+            large_file_overrides = nil,
+            -- min_count_to_highlight: minimum number of matches required to perform highlighting
+            min_count_to_highlight = 1,
+        })
+      end
+    }
+
+    use {
         'lewis6991/gitsigns.nvim',
         requires = {'nvim-lua/plenary.nvim'},
         config = function() require('gitsigns').setup() end
     }
 
-    use {'tomtom/tcomment_vim'}
+    use { 'sindrets/diffview.nvim', requires = 'nvim-lua/plenary.nvim' }
+
+    use {
+      -- Usage: https://github.com/numToStr/Comment.nvim#-usage
+      'numToStr/Comment.nvim',
+      config = function()
+          require('Comment').setup()
+      end
+    }
+
+    use { "aspeddro/gitui.nvim",
+      config = function()
+        require("gitui").setup{
+          -- Command Options
+          command = {
+            -- Enable :Gitui command
+            -- @type: bool
+            enable = true,
+          },
+          -- Path to binary
+          -- @type: string
+          binary = "gitui",
+          -- Argumens to gitui
+          -- @type: table of string
+          args = {},
+          -- WIndow Options
+          window = {
+            options = {
+              -- Width window in %
+              -- @type: number
+              width = 90,
+              -- Height window in %
+              -- @type: number
+              height = 80,
+              -- Border Style
+              -- Enum: "none", "single", "rounded", "solid" or "shadow"
+              -- @type: string
+              border = "rounded",
+            },
+          },
+        vim.api.nvim_set_keymap('n', '<leader>git', ':Gitui<CR>',
+                                {noremap = true})
+        }
+      end
+    }
 
     use {
       'mfussenegger/nvim-dap',
@@ -147,19 +259,6 @@ return require('packer').startup(function()
     }
 
     use {
-      "rcarriga/nvim-dap-ui",
-      config = function()
-        vim.api.nvim_set_keymap('n', '<leader>dset', "<cmd>lua require('dapui').setup()<cr>",
-                                {noremap = false})
-        vim.api.nvim_set_keymap('n', '<leader>dtog', "<cmd>lua require('dapui').toggle()<cr>",
-                                {noremap = false})
-      end,
-      requires = {
-        "mfussenegger/nvim-dap"
-      }
-    }
-
-    use {
       'mg979/vim-visual-multi',
       config = function()
         vim.cmd("let g:VM_maps = {}")
@@ -168,19 +267,10 @@ return require('packer').startup(function()
     }
 
     use {
-      'SirVer/ultisnips',
-      requires = {'honza/vim-snippets'},
-      config = function()
-        vim.g.UltiSnipsExpandTrigger = "<tab>"
-        vim.g.UltiSnipsJumpForwardTrigger = "<c-b>"
-        vim.g.UltiSnipsJumpBackwardTrigger = "<c-z>"
-      end
-    }
-
-    use {
         'nvim-telescope/telescope.nvim',
-        requires = {{'nvim-lua/popup.nvim'}, {'nvim-lua/plenary.nvim'}},
+        requires = {{'nvim-lua/popup.nvim'}, {'nvim-lua/plenary.nvim'}, {'mfussenegger/nvim-dap'}},
         config = function()
+            require('telescope').setup()
             vim.api.nvim_set_keymap('n', '<leader>ff',
                                     '<Cmd>Telescope find_files<CR>',
                                     {noremap = true})
@@ -210,6 +300,9 @@ return require('packer').startup(function()
             vim.api.nvim_set_keymap('n', '<leader>bf',
                                     '<Cmd>Telescope current_buffer_fuzzy_find<CR>',
                                     {noremap = true})
+            vim.api.nvim_set_keymap('n', '<leader>y',
+                                    '<Cmd>Telescope yank_history<CR>',
+                                    {noremap = true})
         end
         -- <C-x> go to file selection as a split
         -- <C-v> go to file selection as a vsplit
@@ -218,74 +311,220 @@ return require('packer').startup(function()
     }
 
     use {
-      'neoclide/coc.nvim',
-      branch = 'release',
-      requires = {
-        'junegunn/fzf',
-        { 'ryanoasis/vim-devicons', 
-          config = function()
-            vim.g.fzf_preview_use_dev_icons = 1
-          end
-        }
-      },
+      "gbprod/yanky.nvim",
       config = function()
-          -- GoTo code navigation.
-          vim.api.nvim_set_keymap('n', 'gd', '<Plug>(coc-definition)',
-                                  {noremap = false})
-          vim.api.nvim_set_keymap('n', '<leader>D',
-                                  '<Plug>(coc-type-definition)',
-                                  {noremap = false})
-          vim.api.nvim_set_keymap('n', 'gi',
-                                  '<Plug>(coc-implementation)',
-                                  {noremap = false})
-          vim.api.nvim_set_keymap('n', 'gr', '<Plug>(coc-references)',
-                                  {noremap = false})
-          -- Use `:CocDiagnostics` to get all diagnostics of current buffer in location list.
-          vim.api.nvim_set_keymap('n', '[d',
-                                  '<Plug>(coc-diagnostic-prev)',
-                                  {noremap = false})
-          vim.api.nvim_set_keymap('n', ']d',
-                                  '<Plug>(coc-diagnostic-next)',
-                                  {noremap = false})
-          -- Use K to show documentation in preview window.
-          vim.api.nvim_set_keymap('n', 'K',
-                                  '<Cmd>call CocActionAsync("doHover")<CR>',
-                                  {noremap = true})
-          -- Format
-          vim.api.nvim_set_keymap('n', '<leader>fm',
-                                  '<Cmd>call CocActionAsync("format")<CR>',
-                                  {noremap = true})
-          -- Yank list (coc-yank)
-          vim.api.nvim_set_keymap('n', '<leader>y',
-                                  '<Cmd>CocList -A --normal yank<CR>',
-                                  {noremap = true})
-          vim.g.coc_global_extensions = {'coc-json', 'coc-jedi', 'coc-sh', 'coc-metals', 'coc-yank', 'coc-sqlfluff', 'coc-lua'}
+        require('telescope').load_extension('yank_history')
       end
     }
+
+    use {
+      "nvim-telescope/telescope-dap.nvim",
+      requires = { "nvim-telescope/telescope.nvim", "mfussenegger/nvim-dap" },
+      config = function()
+        require('telescope').load_extension('dap')
+      end
+    }
+
+    use {
+      "williamboman/mason.nvim",
+      config = function()
+        require("mason").setup()
+      end
+    }
+
+    use {
+      "williamboman/mason-lspconfig.nvim",
+      config = function()
+        require("mason-lspconfig").setup()
+      end
+    }
+
+    use {
+        "neovim/nvim-lspconfig",
+        config = function()
+          -- Mappings.
+          -- See `:help vim.diagnostic.*` for documentation on any of the below functions
+          local opts = { noremap=true, silent=true }
+          vim.diagnostic.config({virtual_text = false})
+          vim.keymap.set('n', '<space>e', vim.diagnostic.open_float, opts)
+          vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, opts)
+          vim.keymap.set('n', ']d', vim.diagnostic.goto_next, opts)
+          vim.keymap.set('n', '<space>q', vim.diagnostic.setloclist, opts)
+
+          -- Use an on_attach function to only map the following keys
+          -- after the language server attaches to the current buffer
+          local on_attach = function(client, bufnr)
+            -- Enable completion triggered by <c-x><c-o>
+            vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
+
+            -- Mappings.
+            -- See `:help vim.lsp.*` for documentation on any of the below functions
+            local bufopts = { noremap=true, silent=true, buffer=bufnr }
+            vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, bufopts)
+            vim.keymap.set('n', 'gd', vim.lsp.buf.definition, bufopts)
+            vim.keymap.set('n', 'K', vim.lsp.buf.hover, bufopts)
+            vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, bufopts)
+            vim.keymap.set('n', '<C-k>', vim.lsp.buf.signature_help, bufopts)
+            vim.keymap.set('n', '<space>wa', vim.lsp.buf.add_workspace_folder, bufopts)
+            vim.keymap.set('n', '<space>wr', vim.lsp.buf.remove_workspace_folder, bufopts)
+            vim.keymap.set('n', '<space>wl', function()
+              print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
+            end, bufopts)
+            vim.keymap.set('n', '<space>D', vim.lsp.buf.type_definition, bufopts)
+            vim.keymap.set('n', '<space>rn', vim.lsp.buf.rename, bufopts)
+            vim.keymap.set('n', '<space>ca', vim.lsp.buf.code_action, bufopts)
+            vim.keymap.set('n', 'gr', vim.lsp.buf.references, bufopts)
+            vim.keymap.set('n', '<leader>fm', function() vim.lsp.buf.format { async = true } end, bufopts)
+          end
+          require('lspconfig')['lua_ls'].setup{}
+          require('lspconfig')['pyright'].setup{
+            on_attach = on_attach,
+            flags = lsp_flags,
+          }
+          require('lspconfig')['rust_analyzer'].setup{
+            on_attach = on_attach,
+            flags = lsp_flags,
+            -- Server-specific settings...
+            settings = {
+              ["rust-analyzer"] = {}
+            }
+          }
+          require('lspconfig')['bashls'].setup{
+            on_attach = on_attach,
+            flags = lsp_flags,
+          }
+        end
+    }
+
+    use {
+      "jose-elias-alvarez/null-ls.nvim",
+      config = function()
+        require('null-ls').setup({
+          capabilities = capabilities,
+          sources = {
+            require('null-ls').builtins.diagnostics.luacheck.with({
+              extra_args = {"--globals", "vim", "--globals", "awesome"},
+            }),
+            require('null-ls').builtins.diagnostics.yamllint,
+            require('null-ls').builtins.formatting.rustfmt,
+            require('null-ls').builtins.formatting.shfmt,
+            require('null-ls').builtins.formatting.yamlfmt,
+            require('null-ls').builtins.formatting.sql_formatter,
+            require('null-ls').builtins.formatting.black,
+            require('null-ls').builtins.completion.spell,
+          },
+        })
+      end
+    }
+
+    use {
+      "folke/which-key.nvim",
+      config = function()
+        vim.o.timeout = true
+        vim.o.timeoutlen = 300
+        require("which-key").setup {
+          -- your configuration comes here
+          -- or leave it empty to use the default settings
+          -- refer to the configuration section below
+        }
+      end
+    }
+
+    use {
+      "hrsh7th/nvim-cmp",
+      requires = { "hrsh7th/cmp-nvim-lsp", "hrsh7th/cmp-buffer", "hrsh7th/cmp-path", "hrsh7th/cmp-cmdline", "hrsh7th/nvim-cmp", "hrsh7th/cmp-nvim-lsp-signature-help" },
+      config = function()
+        local cmp = require'cmp'
+        cmp.setup {
+          sources = cmp.config.sources({
+            {name = 'nvim_lsp'},
+            {name = 'nvim_lsp_signature_help'},
+            {name = 'path'},
+            {name = 'buffer'},
+            {name = 'cmdline'},
+            {name = 'git'},
+          }),
+          mapping = cmp.mapping.preset.insert({
+            ['<C-b>'] = cmp.mapping.scroll_docs(-4),
+            ['<C-f>'] = cmp.mapping.scroll_docs(4),
+            ['<C-Space>'] = cmp.mapping.complete(),
+            ['<C-e>'] = cmp.mapping.abort(),
+            ['<CR>'] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
+          }),
+          window = {
+            completion = cmp.config.window.bordered(),
+            documentation = cmp.config.window.bordered(),
+          },
+        }
+        -- The nvim-cmp almost supports LSP's capabilities so You should advertise it to LSP servers..
+        local capabilities = vim.lsp.protocol.make_client_capabilities()
+        capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
+
+        local lspconfig = require('lspconfig')
+        require('mason-lspconfig').setup_handlers {
+          function(server_name)
+            lspconfig[server_name].setup {
+              capabilities = capabilities,
+            }
+          end,
+        }
+      end
+    }
+
+    -- TODO:nvim-lspconfigへ移行したい
+    -- TODO:formatter, yank list
+    -- use {
+    --   'neoclide/coc.nvim',
+    --   branch = 'release',
+    --   requires = {
+    --     'junegunn/fzf',
+    --     { 'ryanoasis/vim-devicons', 
+    --       config = function()
+    --         vim.g.fzf_preview_use_dev_icons = 1
+    --       end
+    --     }
+    --   },
+    --   config = function()
+    --       -- GoTo code navigation.
+    --       vim.api.nvim_set_keymap('n', 'gd', '<Plug>(coc-definition)',
+    --                               {noremap = false})
+    --       vim.api.nvim_set_keymap('n', '<leader>D',
+    --                               '<Plug>(coc-type-definition)',
+    --                               {noremap = false})
+    --       vim.api.nvim_set_keymap('n', 'gi',
+    --                               '<Plug>(coc-implementation)',
+    --                               {noremap = false})
+    --       vim.api.nvim_set_keymap('n', 'gr', '<Plug>(coc-references)',
+    --                               {noremap = false})
+    --       -- Use `:CocDiagnostics` to get all diagnostics of current buffer in location list.
+    --       vim.api.nvim_set_keymap('n', '[d',
+    --                               '<Plug>(coc-diagnostic-prev)',
+    --                               {noremap = false})
+    --       vim.api.nvim_set_keymap('n', ']d',
+    --                               '<Plug>(coc-diagnostic-next)',
+    --                               {noremap = false})
+    --       -- Use K to show documentation in preview window.
+    --       vim.api.nvim_set_keymap('n', 'K',
+    --                               '<Cmd>call CocActionAsync("doHover")<CR>',
+    --                               {noremap = true})
+    --       -- Format
+    --       vim.api.nvim_set_keymap('n', '<leader>fm',
+    --                               '<Cmd>call CocActionAsync("format")<CR>',
+    --                               {noremap = true})
+    --       -- Yank list (coc-yank)
+    --       vim.api.nvim_set_keymap('n', '<leader>y',
+    --                               '<Cmd>CocList -A --normal yank<CR>',
+    --                               {noremap = true})
+    --       vim.g.coc_global_extensions = {'coc-json', 'coc-jedi', 'coc-sh', 'coc-metals', 'coc-yank', 'coc-sqlfluff', 'coc-lua'}
+    --   end
+    -- }
 
     use {
       'thinca/vim-qfreplace'
       -- grep -> select -> ctr-q -> Qfreplace -> edit&save
     }
 
-    use {
-      'lambdalisue/gina.vim'
-    }
-
-    use {
-      "LeafCage/yankround.vim"
-    }
-
-    use { 'skanehira/jumpcursor.vim',
-      config = function()
-        vim.api.nvim_set_keymap('n', '<leader>j', "<Plug>(jumpcursor-jump)",
-                                {noremap = false})
-      end
-    }
-
-    use {
-      "chrisbra/csv.vim"
-    }
+    -- TODO:gitリポジトリを操作できるやつを探す
 
     use { 'PedramNavid/dbtpal',
       config = function()
