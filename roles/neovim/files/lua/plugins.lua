@@ -183,39 +183,10 @@ return require('packer').startup(function()
       end
     }
 
-    use { "aspeddro/gitui.nvim",
+    use { "kdheepak/lazygit.nvim",
       config = function()
-        require("gitui").setup{
-          -- Command Options
-          command = {
-            -- Enable :Gitui command
-            -- @type: bool
-            enable = true,
-          },
-          -- Path to binary
-          -- @type: string
-          binary = "gitui",
-          -- Argumens to gitui
-          -- @type: table of string
-          args = {},
-          -- WIndow Options
-          window = {
-            options = {
-              -- Width window in %
-              -- @type: number
-              width = 90,
-              -- Height window in %
-              -- @type: number
-              height = 80,
-              -- Border Style
-              -- Enum: "none", "single", "rounded", "solid" or "shadow"
-              -- @type: string
-              border = "rounded",
-            },
-          },
-        vim.api.nvim_set_keymap('n', '<leader>git', ':Gitui<CR>',
+        vim.api.nvim_set_keymap('n', '<leader>git', ':LazyGit<CR>',
                                 {noremap = true})
-        }
       end
     }
 
@@ -471,60 +442,10 @@ return require('packer').startup(function()
       end
     }
 
-    -- TODO:nvim-lspconfigへ移行したい
-    -- TODO:formatter, yank list
-    -- use {
-    --   'neoclide/coc.nvim',
-    --   branch = 'release',
-    --   requires = {
-    --     'junegunn/fzf',
-    --     { 'ryanoasis/vim-devicons', 
-    --       config = function()
-    --         vim.g.fzf_preview_use_dev_icons = 1
-    --       end
-    --     }
-    --   },
-    --   config = function()
-    --       -- GoTo code navigation.
-    --       vim.api.nvim_set_keymap('n', 'gd', '<Plug>(coc-definition)',
-    --                               {noremap = false})
-    --       vim.api.nvim_set_keymap('n', '<leader>D',
-    --                               '<Plug>(coc-type-definition)',
-    --                               {noremap = false})
-    --       vim.api.nvim_set_keymap('n', 'gi',
-    --                               '<Plug>(coc-implementation)',
-    --                               {noremap = false})
-    --       vim.api.nvim_set_keymap('n', 'gr', '<Plug>(coc-references)',
-    --                               {noremap = false})
-    --       -- Use `:CocDiagnostics` to get all diagnostics of current buffer in location list.
-    --       vim.api.nvim_set_keymap('n', '[d',
-    --                               '<Plug>(coc-diagnostic-prev)',
-    --                               {noremap = false})
-    --       vim.api.nvim_set_keymap('n', ']d',
-    --                               '<Plug>(coc-diagnostic-next)',
-    --                               {noremap = false})
-    --       -- Use K to show documentation in preview window.
-    --       vim.api.nvim_set_keymap('n', 'K',
-    --                               '<Cmd>call CocActionAsync("doHover")<CR>',
-    --                               {noremap = true})
-    --       -- Format
-    --       vim.api.nvim_set_keymap('n', '<leader>fm',
-    --                               '<Cmd>call CocActionAsync("format")<CR>',
-    --                               {noremap = true})
-    --       -- Yank list (coc-yank)
-    --       vim.api.nvim_set_keymap('n', '<leader>y',
-    --                               '<Cmd>CocList -A --normal yank<CR>',
-    --                               {noremap = true})
-    --       vim.g.coc_global_extensions = {'coc-json', 'coc-jedi', 'coc-sh', 'coc-metals', 'coc-yank', 'coc-sqlfluff', 'coc-lua'}
-    --   end
-    -- }
-
     use {
       'thinca/vim-qfreplace'
       -- grep -> select -> ctr-q -> Qfreplace -> edit&save
     }
-
-    -- TODO:gitリポジトリを操作できるやつを探す
 
     use { 'PedramNavid/dbtpal',
       config = function()
