@@ -371,7 +371,7 @@ return require('packer').startup(function()
       "jose-elias-alvarez/null-ls.nvim",
       config = function()
         require('null-ls').setup({
-          capabilities = capabilities,
+          -- capabilities = capabilities,
           sources = {
             require('null-ls').builtins.diagnostics.luacheck.with({
               extra_args = {"--globals", "vim", "--globals", "awesome"},
@@ -381,8 +381,7 @@ return require('packer').startup(function()
             require('null-ls').builtins.formatting.shfmt,
             require('null-ls').builtins.formatting.yamlfmt,
             require('null-ls').builtins.formatting.sql_formatter,
-            require('null-ls').builtins.formatting.black,
-            require('null-ls').builtins.completion.spell,
+            require('null-ls').builtins.formatting.black
           },
         })
       end
