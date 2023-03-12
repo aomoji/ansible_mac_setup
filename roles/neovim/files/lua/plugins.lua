@@ -41,6 +41,18 @@ return require('packer').startup(function()
         run = ':TSUpdate'
     }
 
+    use { "nvim-tree/nvim-web-devicons" }
+
+    use {
+        "NTBBloodbath/galaxyline.nvim",
+        -- your statusline
+        config = function()
+          require("galaxyline.themes.eviline")
+        end,
+        -- some optional icons
+        requires = { "nvim-tree/nvim-web-devicons", opt = true }
+    }
+
     use {
       "windwp/nvim-autopairs",
         config = function() require("nvim-autopairs").setup {} end
@@ -87,9 +99,9 @@ return require('packer').startup(function()
 
     -- TODO:便利機能がないか見てみる
     use {
-      'kyazdani42/nvim-tree.lua',
+      'nvim-tree/nvim-tree.lua',
       requires = {
-        'kyazdani42/nvim-web-devicons', -- optional, for file icon
+        'nvim-tree/nvim-web-devicons', -- optional, for file icon
       },
       config = function()
         require'nvim-tree'.setup {}
@@ -102,9 +114,13 @@ return require('packer').startup(function()
     use {
         'akinsho/bufferline.nvim',
         tag = "v2.*",
-        requires = {'kyazdani42/nvim-web-devicons'},
+        requires = {'nvim-tree/nvim-web-devicons'},
         config = function()
-            require("bufferline").setup()
+            require("bufferline").setup {
+              options = {
+                diagnostics = "nvim_lsp"
+              }
+            }
             vim.api.nvim_set_keymap('n', '<C-p>', ':BufferLineCyclePrev<CR>',
                                     {noremap = true})
             vim.api.nvim_set_keymap('n', '<C-n>', ':BufferLineCycleNext<CR>',
@@ -313,6 +329,7 @@ return require('packer').startup(function()
     use {
         "neovim/nvim-lspconfig",
         config = function()
+          -- vim.lsp.set_log_level("debug")
           -- Mappings.
           -- See `:help vim.diagnostic.*` for documentation on any of the below functions
           local opts = { noremap=true, silent=true }
@@ -345,9 +362,10 @@ return require('packer').startup(function()
             vim.keymap.set('n', '<space>rn', vim.lsp.buf.rename, bufopts)
             vim.keymap.set('n', '<space>ca', vim.lsp.buf.code_action, bufopts)
             vim.keymap.set('n', 'gr', vim.lsp.buf.references, bufopts)
-            vim.keymap.set('n', '<leader>fm', function() vim.lsp.buf.format { async = true } end, bufopts)
+            -- vim.keymap.set('n', '<space>fm', function() vim.lsp.buf.format { async = true , timeout_ms = 10000 } end, bufopts)
+            vim.api.nvim_set_keymap('n', '<leader>fm', ':lua vim.lsp.buf.format({ async = true })<CR>', {noremap = true})
           end
-          require('lspconfig')['lua_ls'].setup{}
+          -- require('lspconfig')['lua_ls'].setup{}
           require('lspconfig')['pyright'].setup{
             on_attach = on_attach,
             flags = lsp_flags,
@@ -371,7 +389,8 @@ return require('packer').startup(function()
       "jose-elias-alvarez/null-ls.nvim",
       config = function()
         require('null-ls').setup({
-          -- capabilities = capabilities,
+          debug = true,
+          capabilities = capabilities,
           sources = {
             require('null-ls').builtins.diagnostics.luacheck.with({
               extra_args = {"--globals", "vim", "--globals", "awesome"},
@@ -380,25 +399,26 @@ return require('packer').startup(function()
             require('null-ls').builtins.formatting.rustfmt,
             require('null-ls').builtins.formatting.shfmt,
             require('null-ls').builtins.formatting.yamlfmt,
-            require('null-ls').builtins.formatting.sql_formatter,
+            require('null-ls').builtins.formatting.sqlfluff.with({extra_args = {  "--dialect", "snowflake" },}),
+            require('null-ls').builtins.diagnostics.sqlfluff.with({extra_args = {  "--dialect", "snowflake" },}),
             require('null-ls').builtins.formatting.black
           },
         })
       end
     }
 
-    use {
-      "folke/which-key.nvim",
-      config = function()
-        vim.o.timeout = true
-        vim.o.timeoutlen = 300
-        require("which-key").setup {
-          -- your configuration comes here
-          -- or leave it empty to use the default settings
-          -- refer to the configuration section below
-        }
-      end
-    }
+    -- use {
+    --   "folke/which-key.nvim",
+    --   config = function()
+    --     vim.o.timeout = true
+    --     vim.o.timeoutlen = 300
+    --     require("which-key").setup {
+    --       -- your configuration comes here
+    --       -- or leave it empty to use the default settings
+    --       -- refer to the configuration section below
+    --     }
+    --   end
+    -- }
 
     use {
       "hrsh7th/nvim-cmp",
@@ -446,39 +466,39 @@ return require('packer').startup(function()
       -- grep -> select -> ctr-q -> Qfreplace -> edit&save
     }
 
-    use { 'PedramNavid/dbtpal',
-      config = function()
-        local dbt = require('dbtpal')
-        dbt.setup {
-          -- Path to the dbt executable
-          path_to_dbt = "dbt",
-
-          -- Path to the dbt project, if blank, will auto-detect
-          -- using currently open buffer for all sql,yml, and md files
-          path_to_dbt_project = "",
-
-          -- Path to dbt profiles directory
-          path_to_dbt_profiles_dir = vim.fn.expand "~/.dbt",
-
-          -- Search for ref/source files in macros and models folders
-          extended_path_search = true,
-
-          -- Prevent modifying sql files in target/(compiled|run) folders
-          protect_compiled_files = true
-
-        }
-
-        -- Setup key mappings
-
-        vim.keymap.set('n', '<leader>drf', dbt.run)
-        vim.keymap.set('n', '<leader>drp', dbt.run_all)
-        vim.keymap.set('n', '<leader>dtf', dbt.test)
-        vim.keymap.set('n', '<leader>dm', require('dbtpal.telescope').dbt_picker)
-
-        -- Enable Telescope Extension
-        require'telescope'.load_extension('dbtpal')
-        end,
-     requires = { { 'nvim-lua/plenary.nvim' }, {'nvim-telescope/telescope.nvim'} }
-    }
+    -- use { 'PedramNavid/dbtpal',
+    --   config = function()
+    --     local dbt = require('dbtpal')
+    --     dbt.setup {
+    --       -- Path to the dbt executable
+    --       path_to_dbt = "dbt",
+    --
+    --       -- Path to the dbt project, if blank, will auto-detect
+    --       -- using currently open buffer for all sql,yml, and md files
+    --       path_to_dbt_project = "",
+    --
+    --       -- Path to dbt profiles directory
+    --       path_to_dbt_profiles_dir = vim.fn.expand "~/.dbt",
+    --
+    --       -- Search for ref/source files in macros and models folders
+    --       extended_path_search = true,
+    --
+    --       -- Prevent modifying sql files in target/(compiled|run) folders
+    --       protect_compiled_files = true
+    --
+    --     }
+    --
+    --     -- Setup key mappings
+    --
+    --     vim.keymap.set('n', '<leader>drf', dbt.run)
+    --     vim.keymap.set('n', '<leader>drp', dbt.run_all)
+    --     vim.keymap.set('n', '<leader>dtf', dbt.test)
+    --     vim.keymap.set('n', '<leader>dm', require('dbtpal.telescope').dbt_picker)
+    --
+    --     -- Enable Telescope Extension
+    --     require'telescope'.load_extension('dbtpal')
+    --     end,
+    --  requires = { { 'nvim-lua/plenary.nvim' }, {'nvim-telescope/telescope.nvim'} }
+    -- }
 
 end)
